@@ -1,0 +1,37 @@
+
+
+Select how much of your bandwidth and disk space you want to devote to the following Writeable Web servers on your machine:
+
+Enable	|	Service	|	Description		|	Percentage of Bandwidth		|	Hard-drive space
+
+yes			Jabber		IM, Certificates,		10%						100 Megabytes
+						Whitepages
+
+no choice		WriteDNS		Domain Name 		10% (minimum)				5 MB (minimum)
+no choice		SiteStorage		Sites you Use		10% (minimum)				30 MB (minimum)
+no choice		Hatchery		New Sites w/		5% (minimum)				5 MB (minimum)
+						no members	
+
+
+
+-----------
+You are storing pieces of the following Writeable Web Sites:
+
+Site: Acme.company
+Description: blah...
+Hard-drive space used: 2 MBs
+(ERASE)
+
+Site: Foobar.fan
+Description: We love Foobars!
+Hard-drive space used: 300k
+(ERASE)
+
+
+----------
+
+After pressing Erase if not online:
+
+You must be connected to the Internet to erase a site so the site can be redistributed.
+
+Warning: you must store some of a site in order to be a member of that site.  If you erase this site, you will lose your membership in that site.  Continue?

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2.2.dtd">
+
+<web-app>
+
+   <display-name>JSPWiki</display-name>
+   <description>
+       JSPWiki is a free JSP-based WikiClone.  It is licenced
+       under the GNU General Public License.
+
+       JSPWiki is maintained by Janne Jalkanen (+others),
+       jalkanen+jspwiki@ecyrd.com
+   </description>
+
+   <!--
+	   Now, let's define the XML-RPC interfaces.  You probably don't have to
+	   touch these.
+
+	   First, we'll define the standard XML-RPC interface.
+	-->
+
+   <servlet>
+       <servlet-name>XMLRPC</servlet-name>
+       <servlet-class>com.ecyrd.jspwiki.xmlrpc.RPCServlet</servlet-class>       
+       <init-param>
+           <param-name>handler</param-name>
+           <param-value>com.ecyrd.jspwiki.xmlrpc.RPCHandler</param-value>
+       </init-param>
+
+       <init-param>
+           <param-name>prefix</param-name>
+           <param-value>wiki</param-value>
+       </init-param>
+   </servlet>
+
+   <!--
+       OK, this then defines that our UTF-8 -capable server.
+     -->
+
+   <servlet>
+       <servlet-name>XMLRPC-UTF8</servlet-name>
+       <servlet-class>com.ecyrd.jspwiki.xmlrpc.RPCServlet</servlet-class>       
+       <init-param>
+           <param-name>handler</param-name>
+           <param-value>com.ecyrd.jspwiki.xmlrpc.RPCHandlerUTF8</param-value>
+       </init-param>
+
+       <init-param>
+           <param-name>prefix</param-name>
+           <param-value>wiki</param-value>
+       </init-param>
+   </servlet>
+
+   <!--
+       Attachment exchange handler.
+     -->
+
+   <servlet>
+       <servlet-name>AttachmentServlet</servlet-name>
+       <servlet-class>com.ecyrd.jspwiki.attachment.AttachmentServlet</servlet-class>
+   </servlet>
+
+   <!-- We precompile all of our JSPs as servlets for security reasons;
+		Added by Brad Neuberg, bkn3@columbia.edu for Paper Airplane -->
+
+	<!--
+	Automatically created by Tomcat JspC.
+	Place this fragement in the web.xml before all icon, display-name,
+	description, distributable, and context-param elements.
+	-->
+
+	<servlet>
+		<servlet-name>org.jspwiki.index_jsp</servlet-name>
+		<servlet-class>org.jspwiki.index_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Diff_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Diff_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Edit_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Edit_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Error_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Error_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.PageInfo_jsp</servlet-name>
+		<servlet-class>org.jspwiki.PageInfo_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.PageModified_jsp</servlet-name>
+		<servlet-class>org.jspwiki.PageModified_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Preview_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Preview_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Search_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Search_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Upload_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Upload_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.UserPreferences_jsp</servlet-name>
+		<servlet-class>org.jspwiki.UserPreferences_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.Wiki_jsp</servlet-name>
+		<servlet-class>org.jspwiki.Wiki_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.ConflictContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.ConflictContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.DiffContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.DiffContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.DisplayMessage_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.DisplayMessage_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.EditTemplate_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.EditTemplate_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.FindContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.FindContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.InfoContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.InfoContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.LeftMenu_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.LeftMenu_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.LeftMenuFooter_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.LeftMenuFooter_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.PageContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.PageContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.PreferencesContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.PreferencesContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.PreviewContent_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.PreviewContent_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.SearchBox_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.SearchBox_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.UploadTemplate_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.UploadTemplate_jsp</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>org.jspwiki.templates.default_.ViewTemplate_jsp</servlet-name>
+		<servlet-class>org.jspwiki.templates.default_.ViewTemplate_jsp</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.index_jsp</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Diff_jsp</servlet-name>
+		<url-pattern>/Diff.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Edit_jsp</servlet-name>
+		<url-pattern>/Edit.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Error_jsp</servlet-name>
+		<url-pattern>/Error.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.PageInfo_jsp</servlet-name>
+		<url-pattern>/PageInfo.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.PageModified_jsp</servlet-name>
+		<url-pattern>/PageModified.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Preview_jsp</servlet-name>
+		<url-pattern>/Preview.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Search_jsp</servlet-name>
+		<url-pattern>/Search.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Upload_jsp</servlet-name>
+		<url-pattern>/Upload.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.UserPreferences_jsp</servlet-name>
+		<url-pattern>/UserPreferences.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.Wiki_jsp</servlet-name>
+		<url-pattern>/Wiki.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.ConflictContent_jsp</servlet-name>
+		<url-pattern>/templates/default/ConflictContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.DiffContent_jsp</servlet-name>
+		<url-pattern>/templates/default/DiffContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.DisplayMessage_jsp</servlet-name>
+		<url-pattern>/templates/default/DisplayMessage.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.EditTemplate_jsp</servlet-name>
+		<url-pattern>/templates/default/EditTemplate.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.FindContent_jsp</servlet-name>
+		<url-pattern>/templates/default/FindContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.InfoContent_jsp</servlet-name>
+		<url-pattern>/templates/default/InfoContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.LeftMenu_jsp</servlet-name>
+		<url-pattern>/templates/default/LeftMenu.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.LeftMenuFooter_jsp</servlet-name>
+		<url-pattern>/templates/default/LeftMenuFooter.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.PageContent_jsp</servlet-name>
+		<url-pattern>/templates/default/PageContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.PreferencesContent_jsp</servlet-name>
+		<url-pattern>/templates/default/PreferencesContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.PreviewContent_jsp</servlet-name>
+		<url-pattern>/templates/default/PreviewContent.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.SearchBox_jsp</servlet-name>
+		<url-pattern>/templates/default/SearchBox.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.UploadTemplate_jsp</servlet-name>
+		<url-pattern>/templates/default/UploadTemplate.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>org.jspwiki.templates.default_.ViewTemplate_jsp</servlet-name>
+		<url-pattern>/templates/default/ViewTemplate.jsp</url-pattern>
+	</servlet-mapping>
+
+	<!--
+	All session-config, mime-mapping, welcome-file-list, error-page, taglib,
+	resource-ref, security-constraint, login-config, security-role,
+	env-entry, and ejb-ref elements should follow this fragment.
+	-->
+
+
+   <!--
+       And finally, let us tell the servlet container which
+       URLs should correspond to which XML RPC servlet.
+     -->
+
+   <!-- By default, this is disabled.  If you want to enabled it,
+        just uncomment the whole section. -->
+
+   <!--  REMOVE ME TO ENABLE XML-RPC
+
+   <servlet-mapping>
+       <servlet-name>XMLRPC</servlet-name>
+       <url-pattern>/RPC2/</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+       <servlet-name>XMLRPC-UTF8</servlet-name>
+       <url-pattern>/RPCU/</url-pattern>
+   </servlet-mapping>
+
+   AND REMOVE ME TOO -->
+
+   <servlet-mapping>
+       <servlet-name>AttachmentServlet</servlet-name>
+       <url-pattern>/attach</url-pattern>
+   </servlet-mapping>
+
+   <!-- This means that we don't have to use redirection
+        from index.html anymore.  Yay! -->
+   <welcome-file-list>
+       <welcome-file>Wiki.jsp</welcome-file>
+   </welcome-file-list>
+
+   <!--
+       Here we define the users which are allowed to access JSPWiki
+       editor.
+
+       I'll provide here an example case where you can set up a Wiki
+       which allows everyone read access, but only authenticated
+       users are allowed to edit (i.e. access the Edit.jsp page).
+
+       To enable this, remove the comments signs.
+
+       We setup here two sample roles, "admin" and "user".
+       There is no real difference between these two for now.
+
+       You must also add to your $TOMCAT_HOME/conf/tomcat-users.xml
+       the actual user accounts.
+   -->
+
+   <!--  START OF ACCESS RESTRICTION
+   <security-constraint>
+       <web-resource-collection>
+           <web-resource-name>Protected Area</web-resource-name>
+           <url-pattern>/Edit.jsp</url-pattern>
+           <http-method>DELETE</http-method>
+           <http-method>GET</http-method>
+           <http-method>POST</http-method>
+           <http-method>PUT</http-method>
+       </web-resource-collection>
+
+       <auth-constraint>
+           <role-name>admin</role-name>
+           <role-name>user</role-name>
+       </auth-constraint>
+   </security-constraint>
+
+   <login-config>
+      <auth-method>BASIC</auth-method>
+      <realm-name>JSPWiki Editor</realm-name>
+   </login-config>
+
+   -->
+
+</web-app>

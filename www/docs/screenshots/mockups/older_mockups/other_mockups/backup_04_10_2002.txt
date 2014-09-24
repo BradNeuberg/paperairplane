@@ -1,0 +1,16 @@
+Backup for April 10, 2002
+-------------------------
+
+Changes:
+--------
+*Visually set the cookie trail apart from the page contents color, which is white, by making its background off-white.  Why: By looking different this cues the user that this is part of the browser and not part of the page.
+*Got rid of the Edit button on the toolbar, and moved it as a textual button onto the cookie trail bar.  Why: Usability testing showed that users had trouble 'finding' the edit button; maybe by putting it closer to the content user's will see it better.  This also frees up room on the toolbar.
+*Got rid of the Save and Abandon Changes button on the toolbar, and moved them as textual buttons on the cookie trail bar that say "Finished" and "Cancel".  Why: Same reasons as why I moved the Edit button.  Also, by using Finished instead of Save user's won't have to know the actual way things are stored.  When you press Finished the browser goes right back to just showing the pages contents; no File Save box pops up.  This is based on ideas from UI designer Alan Cooper that user's shouldn't be exposed to the File Save mechanism.
+*Dropping the Formatting Palette feature and the Properties Palette (never shown in screenshots) feature.  Why: The idea behind these concepts was to really rethink how people interact with office suites and to make them easier to use.  This is really hard, both in terms of UI mockups, usability testing, and actual coding, so this feature is going to be delayed until future versions of Writeable Web.  By not redoing how office suites work I get to use all the nice nifty code in OpenOffice, and really focus my energy on getting the distributed storage and naming issues ironed out.
+*Added a button to show and hide the Sidebar.  Needed: a button to show and hide the Buddy List.
+*Added a bunch of new buttons onto the big toolbar during editing of a text document.  Why: these buttons should represent what most user's do when they are editing a text document.
+
+Also:
+Today I investigated a radically different way of organizing web-sites that work more how people think; to really explore this idea would take too much time, and I need to move on to the Architecture phase.  This will just have to be delayed to a future release.
+
+

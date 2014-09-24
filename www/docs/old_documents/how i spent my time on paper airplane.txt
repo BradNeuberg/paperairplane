@@ -1,0 +1,30 @@
+october 2001 - conceptualizing
+november 2001 - conceptualizing/usability
+december 2001 - traveling for 3 weeks 
+january 2002 - in singapore/moving in
+
+feb 2002 - usability
+march 2002 - usability
+april 2002 - usability/user manual
+may 2002 - commissioning graphic design/usability/user manual
+june 2002 - commissioning graphic design/usability/user manual
+july 2002 - commissioning graphic design/usability/user manual
+aug 2002 - user manual
+sep 2002 - studying p2p theory
+oct 2002 - working on p2p architecture
+nov 2002 - studying XUL/JXTA/about non-profit management
+dec 2002 - hacking on prototype of XUL interface
+
+jan 2003 - hacking on prototype of XUL interface/defining the api
+feb 2003 - xml-rpc bridge
+march 2003 - xml-rpc bridge/blackconnect
+april 2003 - working on blackconnect
+
+conceptualizing - 3 months
+usability - about 6 months
+user manual - about 2 months
+studying - 2 months
+p2p architecture - 1 month
+hacking on beginning prototype - 2 months
+xml-rpc bridge - 1 1/2 months
+blackconnect - 1 1/2 months

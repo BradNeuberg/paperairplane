@@ -1,0 +1,65 @@
+<html><head><title>Appendix C - Peer-to-Peer Network Performance Requirements</title><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head><body bgcolor="#FFFFFF" text="#000000"><table width="100%" border="0" bgcolor="#A8A8FF">  <tr>     <td>       <div align="left"><img src="images/UserManualGraphic.png" width="183" height="44"></div>    </td>    <td>       <div align="right"><img src="images/logo.png" width="183" height="44"></div>    </td>  </tr></table>
+<p align="right"><a href="UserManual.html">Table of Contents</a> | <a href="AppendixBClientApplicationPerformanceRequirements.html">Last</a> 
+  | <a href="AppendixDListofCategoriesandSubCategoriesinTheTwoWayWebDirectory.html">Next</a> 
+</p>
+<p align="left"><b><font size="5">Appendix C - Peer-to-Peer Network Performance   Requirements</font></b></p>
+<p style="line-height: 200%"> The following are the performance characteristics 
+  that the peer to peer Two Way Web network should elicit. Some operations may 
+  never complete and should report timeouts.</p>
+<ul>
+  <li> 
+    <p style="line-height: 200%"><i>Sign In time</i> - <span style="font-style: normal">10 
+      seconds in extreme case, 3 seconds in normal case</span></p>
+  <li> 
+    <p style="line-height: 200%"><i>Sign Out time</i><span style="font-style: normal"> 
+      - 10 seconds in extreme case, 2 seconds in normal case</span></p>
+  <li> 
+    <p style="line-height: 200%"><i>Pulling up main Two Way Web Directory or sub-category 
+      list - </i><span style="font-style: normal">should be near instataneous, 
+      since no network communication is involved</span></p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Pulling up Two Way Web 
+      Directory sub-category</i> - 2 seconds best case, 3 seconds normal case, 
+      10 seconds worst case</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Pulling up a Two Way Web 
+      page of 50K you've never visited before</i> - 5 seconds or less</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Pulling up a Two Way Web 
+      page that is in your cache</i> - should feel instataneous </p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Saving a Two Way Web Page 
+      of 50K into the network</i> - 2 seconds in best case, 3.5 seconds in normal 
+      case, 10 seconds in worst case. Should instantly return after propagation 
+      starts.</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Creating a New Two Way 
+      Web Site</i> - 5 seconds normal case, 10 seconds worst case</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Joining a Site</i> - 5 
+      seconds normal case, 10 seconds worst case</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Propagating changes to 
+      a Two Way Web Page</i> - Others should start to see them right when it is 
+      saved, with no delay.</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Deleting a Two Way Web 
+      Page</i> - 5 seconds normal case, 10 seconds worst case.</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Loading a site's metadata 
+      for AutoLinking features</i> - 1 second in best case, 8 seconds worst case</p>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Length of time a new Two 
+      Way Web Site becomes visible</i> - 5 minutes best case, 15 minutes normal 
+      case, 30 minutes to an hour worst case.</p>
+</ul>
+<ul>
+  <li> 
+    <p style="font-style: normal; line-height: 200%"><i>Length of time it takes 
+      until a change to a site's structure shows up for AutoLinking feature</i> 
+      - define</p>
+</ul>
+<p style="font-style: normal; line-height: 200%">Sites should show linear or near-linear   performance versus size of site and number of participants, i.e. everything   should be <i>log n</i> or <i>n log n</i> in terms of performance, where <i>n   </i>could be considered either the number of nodes in the system or the amount   of content for that particular function, such as number of domain endings.</p><p style="font-style: normal; line-height: 200%">Further metrics of performance,   such as avalability, reliability, latency, minimizing the burdens of individual   peers, etc. are defined in the Two Way Web Architectural Document <b><i>[link   me]</i></b>.</p><p align="left">&nbsp;</p>
+<p align="right"><a href="UserManual.html">Table of Contents</a> | <a href="AppendixBClientApplicationPerformanceRequirements.html">Last</a> 
+  | <a href="AppendixDListofCategoriesandSubCategoriesinTheTwoWayWebDirectory.html">Next</a></p>
+</body></html>

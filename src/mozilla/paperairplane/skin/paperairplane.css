@@ -1,0 +1,10 @@
+
+#mainPaperAirplaneToolbar {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	height: 41px;
+	min-height: 41px;
+	max-height: 41px;
+	overflow: hidden;
+}

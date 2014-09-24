@@ -1,0 +1,198 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+\viewkind4\uc1\pard\ul\b\f0\fs20 My Nouns\par
+\par
+\ulnone\b0 The Writeable Web\par
+\tab Has Two Way Web Sites\par
+The World Wide Web\par
+\tab The Older Web?\par
+The Internet\par
+\tab Contains the WWW and the Writeable Web\par
+Storable (abstract interface)\par
+\tab States that something can be stored somewhere\par
+\par
+\tab P2PStorable\par
+\tab\tab States that something can be stored in a peer to peer manner\par
+\par
+\tab WebDAVStorable\par
+\tab\tab States that something can be stored using webdav\par
+Storage\par
+\tab An abstract place to put things\par
+\tab A singleton\par
+\tab\par
+\tab P2PStorage\par
+\tab P2PTwoWayWebStorage\par
+\tab WebDAVStorage\par
+StorageException\par
+\tab Something bad happend while trying to store things!\par
+P2PException\par
+\tab An error occurred in the p2p layer\par
+URIAddressable (maybe Nameable? too abstract maybe?)\par
+\tab States that something has a URI\par
+TwoWayWebSite\par
+\tab Has members and a join/unjoin system and a role system\par
+User\par
+\tab A user of some kind\par
+UserInfo\par
+\tab Standard info about a user (signature, phone number, etc.)\par
+TwoWayWebUser\par
+\tab A user on the Two Way Web\par
+\tab is he online?\par
+\tab has a public/private key\par
+\tab has a password to unlock this key\par
+InstantMessageable\par
+\tab Indicates that something can have messages sent to and from it\par
+Namespace\par
+\tab A particular scoped namespace\par
+Site\par
+\tab Editable\par
+\tab Signinable? (Authenticable?)\par
+\tab Joinable/Unjoinable\par
+\tab has members\par
+\tab has web pages\par
+\tab Searchable\par
+\tab AccessControllable?\par
+\tab Createable\par
+\tab has a default page\par
+SiteInfo\par
+\tab Metadata about this site; the same as a profile for a user\par
+HumanBeing (the person sitting at the computer)\par
+\tab Might have several different accounts, both on the web and the TWW\tab\par
+Resource\par
+\tab A generic URIAddressable resource\par
+Page\par
+\tab A Resource that is a page\tab\par
+Directory\par
+\tab A Directory of sites that may be available (abstract)\par
+TwoWayWebDirectory\par
+\tab A directory of pages on the two way web\par
+Profileable (Infoable?)\par
+\tab A friendlier name for something that has metadata\par
+PrivacyException\par
+\tab Occurs if someone doesn't have permission to access a particular piece of info\par
+\par
+Extension points:\par
+\tab * Have Two Way Web Sites that can be stored in conventional ways\par
+\tab * Extend Two Way Web Sites to have new services particular to them\par
+\tab * Have normal web sites that can have two way web site abilities\par
+\tab * Have DisDNS serve metadata that can be used by conventional WWW\par
+\tab * Have presence services around sites (i.e. publish/subscribe to a site?)\par
+\tab * Searching a site\par
+\tab * Federating other user namespaces outside of Two Way Web? (for future Universal IM work?)\par
+\tab * Hiding different join/unjoin systems?\par
+\tab * Interacting with other P2P systems\par
+\par
+What do we want to be generic with from an interface standpoint?\par
+\tab * Things that have info (user's, sites, pages, etc.)\par
+\tab * Things that are editable?\par
+\par
+Two layers?\par
+\tab One is completely abstract: these are sites, etc.\par
+\tab The other is a bit less abstract: make a timestamp, store this, put this metadata here; talks less about sites and closer to the metal\par
+\par
+Goals:\par
+\tab * easy to understand (very important)\par
+\tab * small 'conceptual size' (not too many classes, don't pull in too many outside standards (JMS, etc.))\par
+\tab * KISS\par
+\tab * allow for batch operations?\par
+\tab * synchronous or asynchronous system?\par
+\tab * callback system?\par
+\tab * we're being called by single-threaded scripting languages used by more niave users, though we might be called\par
+\tab   by other Java as well if we are integrated into another system\par
+\tab * can't block the calling thread\par
+\tab * how does SwingWorker work again? Everything pushed onto event thread.  Is there a Mozilla event thread that we can push\par
+\tab   event objects onto?  Nasty though.\par
+\tab * What does Mozilla recommend for blocking operations in JavaScript? \par
+\tab * Any operation that actually communicates on the network should throw RemoteExceptions (operations which operate on the local\par
+\tab cache of data will not).  JavaDoc should make it clear what is a local and what is a remote operation.\par
+\tab * Interfaces are there if you need to deal with something more abstractly, but you don't need to always:\par
+\tab\tab\tab * Deal with anything that is Nameable:\par
+\tab\tab\tab\tab Nameable n = (Nameable)someObj;\par
+\tab\tab\tab\tab n.setName("new name");\par
+\tab * Security of the interfaces\par
+\tab * Use Mozilla's URL protocol infrastructure\par
+\par
+Maybe grab the abstraction layer from an opensource WebDAV library?\par
+\par
+Common operations:\par
+\tab * Creating a site\par
+\tab * Creating a new page\par
+\tab * Editing a page\par
+\tab * Storing a site?\par
+\tab * Storing a page?\par
+\tab * Joining a site\par
+\tab * Seeing if a site exists\par
+\par
+Ideal from an end-programmer standpoint:\par
+TwoWayWeb tww = TheInternet.getTwoWayWeb();\par
+Site myNewSite = tww.newSite();\par
+myNewSite.setName("codinginparadise.weblog");\par
+myNewSite.setDescription("My weblog!");\par
+myNewSite.addCategory("Society, Politics, & Government", "Campaign Finance Reform");\par
+myNewSite.setMembershipPolicy(MembershipPolicy.PUBLIC);\par
+myNewSite.addManager(me);\par
+try \{\par
+\tab tww.storeSite(myNewSite);\par
+\tab // default storage scheme is P2P TwoWayWeb scheme\par
+\tab // you could also write:\par
+\tab // tww.storeSite(myNewSite, new WebDAVStorage());\par
+\}\par
+catch (RemoteException e, StorageException s, ServiceException e) \{\par
+\}\par
+\par
+Better from an interface standpoint:\par
+Site myNewSite = new Site();\par
+myNewSite.setDomainName("codinginparadise.weblog");\par
+SiteInfo i = myNewSite.getInfo();\par
+\par
+--------------\par
+\par
+If we take a JavaScript-centric approach, it will significantly improve the ease of use of the API, since it is so generic (potential security issues, though) -- perform assertions on all input?\par
+\par
+var s = new Site();\par
+try \{\par
+\tab s.domainName = "codinginparadise.weblog";\par
+\}\par
+catch (MalformedURLException e) \{\}\par
+// site object automatically grabs its SiteInfo object and populates itself with them as member variables\par
+s.info.description = "This is my weblog";\par
+s.info.category[0] = "go://www.TwoWayWeb.directory/SocietyPoliticsAndGovernment.rdf#CampaignFinanceReform";\par
+s.info.category[1] = "go://www.TwoWayWeb.directory/Entertainment.rdf#Movies";\par
+s.info.createdBy = me;\par
+s.info.someWierdCustomInfo = "foobar";\par
+s.info.storage = WebDAVStorage; // WebDAVStorage is simply the prototype superclass\par
+try \{\par
+\tab TwoWayWeb.createSite(s);\par
+\tab //TwoWayWeb.createSite(s, WebDAVStorage);\par
+\tab //TwoWayWeb.updateSite(s);\par
+\} catch (RemoteException, CreationException, NameExistsException e, ACLException) \{\}\par
+\par
+\par
+------\par
+s.info.someInfo.subject = "http://www.paperairplane.us"; // the default is for the subject to be talking about the site itself\par
+s.info.someInfo.predicate = "http://www.w3.org/dc/createdBy";\par
+s.info.someInfo.object = "go://www.TwoWayWeb.users/Brad Neuberg";\par
+\par
+-----\par
+if (s.members["Brad Neuberg"] == None)\par
+\par
+s.roles.Manager\par
+s.roles.Member\par
+s.roles.NonMember\par
+\par
+var acceptedOrNot = s.join(me);\par
+if (acceptedOrNot == MembershipStatus.ACCEPTED)\par
+if (acceptedOrNot == MembershipStatus.NOT_ACCEPTED)\par
+if (acceptedOrNot == MembershipStatus.PENDING_APPROVAL)\par
+alert(acceptedOrNot.message);\par
+\par
+----------------\par
+s.page["Doing Business In Bangkok"] // defaults to Doing Business In Bangkok.page\par
+var p = s.page["Doing Business In Bangkok"];\par
+if (p != null) \{\par
+\tab print(page.contents);\par
+\}\par
+p.info.mimeType = TwoWayWeb.MIMETYPE;\par
+\par
+\par
+}
+ 

@@ -1,0 +1,16 @@
+Backup for April 12, 2002
+-------------------------
+
+Changes:
+--------
+*Added "TASK DESCRIPTION" dividing frames that break up the different parts of the screenshots into functional sections.  These task descriptions give a title for the set of screenshots, such as "Creating a New Writeable Web Site," and go over the functionality that is exhibited in that set of screenshots, such as "Features: Splash Screen, Home Page, New Writeable Web Site Wizard."  Why: People were getting confused about how things are organized in the screenshots.  Credit: Thanx to Hoang.
+*The old URL for Writeable Web used to be "open", so when a user opened a page they would see "open://Acme.company" in the address bar.  This was changed to "go"; so the previous example is now "go://Acme.company."  Why: "go" is shorter and easier to type, and makes more sense.
+*Added new URL named "edit" that is used to edit a given Writeable Web page.  This is displayed during edit mode.  So if we are editing the previous example, the Address bar would show "edit://Acme.company." Why: Nice way to allow users to instantly edit a page without having to browse to it first with "go."  Also makes it possible for people to embed URLs into their documents that will cause another page to be instantly edited. Credit: Thanx to Hoang.
+*Added a greenish outline around the document during edit mode.  Why: Gives the user visible feedback about what state they are in.
+*Added "Sidebar" and "Buddy List" icons to main toolbar.  When Sidebar button is pushed, it opens and closes the left-hand sidebar.  When Buddy List is pushed, it shows and hides the Buddy List popup Instant Messaging window.  Why: Some programs make it easy to close a default window, such as the Sidebar in Netscape 6, but then make it obscure how to get that window again; newbie users freak out and can't figure out how to get the window again.  These buttons make it very easy to close and reopen windows that might get in the way but which are needed sometimes.
+*Finished icons that are shown during Edit Mode for OpenOffice Write documents.  Writeable Web pages are actually the XML pages that are saved by OpenOffice, and the edit screen shown is actually OpenOffice being wrapped. To do: Show what edit mode looks like not only for OpenOffice Write, but also for the Presentation, Spreadsheet, Formula, HTML, and Drawing parts of OpenOffice.
+*Added Formatting bar from OpenOffice shown during Edit Mode for OpenOffice Word documents.  Why: By simply mimicing the functionality of OpenOffice here, it will make it easy to track changes in OpenOffice into Writeable Web.
+*Finished Sidebar tabs and removed Tools and Links sections from sidebar.
+*Finished what Main Tab Panel looks like.
+*Finished what Search Tab Panel looks like.
+

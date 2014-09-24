@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+	<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+ 	<Description about="urn:mozilla:install-manifest">
+ 
+    	<em:id>{be539ee8-4df7-4b1c-bb58-b68d3fd04a8b}</em:id>
+ 		<em:name>Paper Airplane</em:name>
+ 		<em:version>0.1.1</em:version>
+ 		<em:creator>Brad GNUberg, bkn3@columbia.edu</em:creator>
+ 		<em:description>Paper Airplane is a Mozilla plugin that empowers people to easily create collaborative P2P web sites, without setting up servers or spending money</em:description>
+		<em:homepageURL>http://paperairplane.us</em:homepageURL>
+
+		<em:file>
+			<Description about="urn:mozilla:extension:file:paperairplane-chrome.jar">
+				<em:package>paperairplane/content/</em:package>
+				<em:skin>paperairplane/skin/</em:skin>
+			</Description>
+		</em:file>
+ 
+ 		<em:targetApplication>
+ 			<Description>
+    			<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+ 				<em:minVersion>0.6</em:minVersion>
+				<em:maxVersion>1.0+</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+		
+	</Description>
+</RDF>

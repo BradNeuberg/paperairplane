@@ -1,0 +1,314 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs20 Two Way Web host names (mynewsite.weblog, etc.) are simply groups of peers that can do whatever they wish with the path area of the URI.\par
+Groups can be nested inside groups, but they will appear as collections (directories) inside the main domain group.\par
+\par
+HTTP or HTTP-like semantics?  Drop all of WebDAV, but just grab properties stuff (maybe delete and rename as well)?\par
+\par
+no support for:\par
+\tab keep-alive\par
+\tab caching\par
+\tab ranges\par
+\tab TRACE\par
+\par
+issue: we slightly change the semantics of PUT when dealing with changes.xml, members.xml, and sitepages.xml by having PUT return the newer version\par
+of this file if a different etag version exists.\par
+\par
+The API to the P2P layer is simply HTTP 1.1 with some features not supported:\par
+\tab Creating a new site:\par
+\tab\tab Request>\par
+\par
+\tab\tab PUT /sites/mynewsite.weblog HTTP/1.1\par
+\tab\tab host: twowayweb.directory\par
+\tab\tab authentication: PKI client-credentials\par
+\tab\tab content-encoding: text/xml\par
+\tab\tab content:\par
+\par
+\tab\tab <?xml version="1.0"?>\par
+\tab\tab <directory-record type="domain">\par
+\tab\tab\tab <credentials>\par
+\tab\tab\tab\tab ...timestamp...\par
+\tab\tab\tab\tab ...way to verify timestamp...\par
+\tab\tab\tab </credentials>\par
+\tab\tab\tab <name>mynewsite.weblog</name>\par
+\tab\tab\tab <value>\par
+\tab\tab\tab\tab <role>\par
+\tab\tab\tab\tab\tab <role-name>Manager</role-name>\par
+\tab\tab\tab\tab\tab <public-key>234234234234234234</public-key>\par
+\tab\tab\tab\tab </role>\par
+\tab\tab\tab <value>\par
+\tab\tab </directory-record>\par
+\par
+\tab\tab (Response says OK or maybe Forbidden to indicate the resource is already there)\par
+\tab\par
+\tab Looking up a site:\par
+\tab\tab Request>\par
+\par
+\tab\tab GET /sites/mynewsite.weblog HTTP/1.1\par
+\tab\tab host: twowayweb.directory\par
+\tab\par
+\tab\tab Response simply returns the domain record XML document from above; client uses the credentials section to validate\par
+\tab\tab the domain record\par
+\par
+\tab Looking up a user:\par
+\tab\tab Request>\par
+\par
+\tab\tab GET /users/Brad Neuberg HTTP/1.0\tab\tab\par
+\tab\tab host: twowayweb.users\par
+\par
+\tab\tab Response>\par
+\par
+\tab\tab GET /users/Brad Neuberg HTTP/1.0 200 OK\par
+\tab\tab host: twowayweb.users\par
+\tab\tab content-type: text/xml\par
+\tab\tab content:\par
+\par
+\tab\tab <?xml version="1.0"?>\par
+\tab\tab <directory-record type="user">\par
+\tab\tab\tab <credentials>(same as above)</credentials>\par
+\tab\tab\tab <name>twowayweb.users/users/Brad Neuberg</name>\par
+\tab\tab\tab <value>\par
+\tab\tab\tab\tab <public-key>2341243123412341243</public-key>\par
+\tab\tab\tab </value>\par
+\tab\tab </directory-record>\par
+\par
+\tab Creating a user:\par
+\tab\tab PUT /users/Brad Neuberg HTTP/1.0\par
+\tab\tab host: twowayweb.users\par
+\tab\tab content-type: text/xml\par
+\tab\tab content:\par
+\par
+\tab\tab <?xml version="1.0"?>\par
+\tab\tab <directory-record type="user">\par
+\tab\tab\tab <credentials>(same as above)</credentials>\par
+\tab\tab\tab <name>twowayweb.users/users/Brad Neuberg</name>\par
+\tab\tab\tab <value>\par
+\tab\tab\tab\tab <public-key>2341243123412341243</public-key>\par
+\tab\tab\tab </value>\par
+\tab\tab </directory-record>\par
+\par
+\tab\tab (response says OK or that the resource already exists or something)\par
+\par
+\tab Editing a page:\par
+\tab\tab (nothing, since we simply already edit the page and save it when its done - no locking)\par
+\tab\tab\par
+\tab Saving an edited page:\par
+\tab\tab (might use etags and could inform the user that a different version is already there)\par
+\tab\tab PUT /Doing Business In Bangkok.page HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials\par
+\tab\tab content-type: application/twowayweb-page\par
+\tab\tab content-signature: sfg9sdfgsdfgsdf (signature using Member's role key for site) (sig of digest of content)\par
+\tab\tab content: \par
+\par
+\tab\tab (signature stored with content somehow)\par
+\tab\tab\tab\par
+\tab\tab (response could say that its OK or that its not allowed based on the credentials)\par
+\par
+\tab Looking up a page:\par
+\tab\tab GET /Doing Business in Bangkok.page HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials\par
+\tab\tab\par
+\par
+\tab\tab Response>\par
+\tab\tab GET /Doing Business in Bangkok.page HTTP/1.0 200 OK\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab etag: 43453453453453454 (hash of file, including with its properties)\par
+\tab\tab content-signature: sfg9sdfgsdfgsdf (signature using Member's role key for site) (sig of digest of content)\par
+\tab\tab content-type: application/twowayweb-page\par
+\tab\tab content:\par
+\par
+\tab\tab (content here)\par
+\par
+\tab Getting the members list:\par
+\tab\tab (each individual member file is returned)\par
+\tab\tab GET /members.xml HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials\par
+\par
+\par
+\tab\tab Response>\par
+\tab\tab GET /members.xml HTTP/1.0 200 OK\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab content-type: text/xml\par
+\tab\tab content-signature: sdfasdfasdf (signature using Manager's role key for site) (signature of members list XML)\par
+\tab\tab content:\par
+\par
+\tab\tab <? xml version="1.0" ?>\par
+\tab\tab <members>\par
+\tab\tab\tab <member>\par
+\tab\tab\tab\tab <directory-record type="user">same as in DNS system</directory-record>\par
+\tab\tab\tab\tab <role>Manager</role>\par
+\tab\tab\tab </member>\par
+\par
+\tab\tab\tab <member>\par
+\tab\tab\tab\tab <directory-record type="user">same as in DNS system</directory-record>\par
+\tab\tab\tab\tab <role>Manager</role>\par
+\tab\tab\tab </member>\par
+\tab\tab </members>\par
+\par
+\tab\tab\par
+\tab Adding a member:\par
+\tab\tab (Exactly the same as PUTing a changes.xml or sitelayout.xml file)\par
+\par
+\tab Removing a member:\par
+\tab\tab DELETE /members/Brad GNUberg HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials (plus Managers public key for that site using a digital signature)\par
+\par
+\tab Changing a member's role:\par
+\tab\tab PUT /members/Brad GNUberg HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials (plus Managers public key for that site using a digital signature)\par
+\tab\tab content-type: text/xml\par
+\tab\tab content-signature: asdfasdf (signature using Manager's role key for site) (signature of individual member XML)\par
+\tab\tab content:\par
+\par
+\tab\tab <?xml version="1.0" ?>\par
+\tab\tab <member\par
+\tab\tab\tab <directory-record type="user">same as in DNS system</directory-record>\par
+\tab\tab\tab <role>New Role</role>\par
+\tab\tab </member>\par
+\par
+\par
+\tab Renaming a page:\par
+\tab\tab RENAME /Doing Business In Bangkok.page HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials\par
+\par
+\tab Deleting a page:\par
+\tab\tab DELETE /Doing Business in Bangkok.page HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials (dig sig of this request using Managers private key for that site)\par
+\par
+\tab Seeing new changes:\par
+\tab\tab GET  /changes.xml HTTP/1.0 \par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authentication: PKI client-credentials\par
+\par
+\tab\tab Response>\par
+\tab\tab GET /changes.xml  HTTP/1.0 200 OK\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab etag: 2435234523454 (MD5 hash of changes.xml)\par
+\tab\tab content-type: text/xml\par
+\tab\tab content-signature: asdflkjasdflkjasdfj (dig sig of changes.xml signed with members key)\par
+\tab\tab content:\par
+\par
+\tab\tab <? xml version="1.0" ?>\par
+\tab\tab <events>\par
+\tab\tab\tab <event>\par
+\tab\tab\tab\tab <event-type>New Page</event-type>\par
+\tab\tab\tab\tab <event-target>/Doing Business in Bangkok.page</event-target>\par
+\tab\tab\tab\tab <event-time>some time</event-time>\par
+\tab\tab\tab\tab <event-initiator>Brad Neuberg</event-initiator>\par
+\tab\tab\tab </event>\par
+\tab\tab\tab <event>\par
+\tab\tab\tab\tab <event-type>Page Modified</event-type>\par
+\tab\tab\tab\tab <event-target>/Doing Business in Bangkok.page</event-target>\par
+\tab\tab\tab\tab <event-time>some time</event-time>\par
+\tab\tab\tab\tab <event-initiator>John Doe</event-initiator>\par
+\tab\tab\tab </event>\par
+\tab\tab </events>\par
+\par
+\tab Writing about a new change:\par
+\tab\tab (same process as writing the sitelayout.xml file, but instead we are writing a new change into the file)\par
+\tab\tab (i.e. when we try to PUT the new changes.xml file, we have an if-etag: of the old changes.xml file we changed;\par
+\tab\tab  if they don't match, the 'host' rejects it, and automatically includes the new changes.xml file with the response;\par
+\tab\tab  we then right our new change into the changes.xml, and repeat the process with an if-etag: with the newer changes.xml etag)\par
+\par
+\tab Getting the site layout:\par
+\tab\tab GET /sitelayout.xml HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab\par
+\tab\tab Response (for private site)>\par
+\tab\tab GET /sitelayout.xml HTTP/1.0 200 OK\par
+\tab\tab etag: 34534534534534 (hash of file, including its properties)\tab\par
+\tab\tab content-type: application/twowayweb-encrypted\par
+\tab\tab content:\par
+\tab\tab\tab (asdfasdfasdfasdf) encrypted version of site.xml\par
+\par
+\tab\tab Response (for public site)>\par
+\tab\tab GET /sitelayout.xml HTTP/1.0 200 OK\par
+\tab\tab etag: 34534534534534 \par
+\tab\tab content-signature: 234234123412343 (dig sig of hash of sitepages.xml with Members key)\par
+\tab\tab content-type: text/xml\par
+\tab\tab content:\par
+\par
+\tab\tab <?xml version="1.0" ?>\par
+\tab\tab <sitepages all-etags-use="MD5">\par
+\tab\tab\tab <page type="members file">\par
+\tab\tab\tab\tab <file>members.xml</file>\par
+\tab\tab\tab\tab <etag>234234234234</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab\tab <page type="site layout file">\par
+\tab\tab\tab\tab <file>sitelayout.xml</file>\par
+\tab\tab\tab\tab <etag>asdfasdfasdfasdf</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab\tab <page type="new changes file">\par
+\tab\tab\tab\tab <file>newchanges.xml</file>\par
+\tab\tab\tab\tab <etag>23423423423</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab\tab <page>\par
+\tab\tab\tab\tab <file>Doing Business in Bangkok.page</file>\par
+\tab\tab\tab\tab <etag>2345234523452345</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab\tab <page>\par
+\tab\tab\tab\tab <file>Third Quarter Reports.xls</file>\par
+\tab\tab\tab\tab <etag>sdfase5345345435</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab </sitepages>\tab\tab\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\tab\par
+\tab Updating the site layout:\par
+\tab\tab We must make sure that when we write to the site layout file that we have the most recent version\par
+\tab\tab\par
+\tab\tab PUT /sitepages.xml HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab if-etag: 5234523453452345243 (etag of what the old sitepages.xml file was before our addition)\par
+\tab\tab authenticate: PKI client-credentials (plus Members role key for that site)\par
+\tab\tab content-signature: 4534523452345 (dig sig of new sitelayout.xml file with Members key)\par
+\tab\tab content-type: text/xml\par
+\tab\tab content:\par
+\tab\tab\par
+\tab\tab <?xml version="1.0" ?>\par
+\tab\tab <sitepages all-etags-use="MD5">\par
+\tab\tab\tab <page>\par
+\tab\tab\tab\tab <file>Discussion about Bangkok.page</file>\par
+\tab\tab\tab\tab <etag>24234234234234234</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab\tab <page>\par
+\tab\tab\tab\tab <file>Doing Business in Bangkok.page</file>\par
+\tab\tab\tab\tab <etag>2345234523452345</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab\tab <page>\par
+\tab\tab\tab\tab <file>Third Quarter Reports.xls</file>\par
+\tab\tab\tab\tab <etag>sdfase5345345435</etag>\par
+\tab\tab\tab </page>\par
+\tab\tab </sitepages>\tab\par
+\par
+\tab\tab Response>\par
+\tab\tab (HTTP response code that the if condition didn't hold, and sends along the new changes.xml file plus its new etag)\par
+\par
+\tab\tab (we now update this NEW sitelayout.xml file with our change once again)\par
+\par
+\tab\tab Request>\par
+\tab\tab (PUT the new new sitelayout.xml file again, with our changes, and include the etag of the new sitelayout.xml file)\par
+\par
+\tab Seeing if there is a new change:\par
+\tab\tab (every ten minutes, lets say)\par
+\tab\tab HEAD /newchanges.xml HTTP/1.0\par
+\tab\tab host: codinginparadise.weblog\par
+\tab\tab authenticate: PKI client-credentials\par
+\tab\tab\tab\tab\par
+\par
+\tab Seeing if there is a new member:\par
+\par
+\tab Joining a site:\par
+\par
+\tab Unjoining a site:\par
+\par
+\tab deep archiving:\par
+\tab\tab twowayweb.archive\par
+\tab\tab\par
+}
+ 

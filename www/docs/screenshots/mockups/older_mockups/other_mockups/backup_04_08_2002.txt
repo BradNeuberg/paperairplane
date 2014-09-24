@@ -1,0 +1,16 @@
+Backup for April 08, 2002
+-------------------------
+
+Changes:
+--------
+*Got rid of the old, advanced Home Base stuff, such as the "What's New on Your Favorites" and "What's Important on Your Favorites".  Why: Testing showed that users were both confused and intimidated as this being the first thing they saw when they started the browser.
+*Changed the name of the project from Docuverse to The Writeable Web.  Why: Sounds better, better descriptive of project, and less intimidating to say.
+*Changed the slogan from "People deserve a voice" to "You deserve a voice." Why: More direct and catchy.
+*Got rid of the concept of Areas.  This involved removing the "New Area" entry from the New pop-down menu on the toolbar and also removing the "Select Areas" first step on the New Web Site wizard.  This means that there will no longer be advanced modules that create weblogs, online offices, or newspapers.  Why: Areas were a strange concept that were hard to include in a UI sense; I'm also looking for things to drop to make development easier.
+*Added new intro text on the Home to better explain what The Writeable Web is about.  Also added "Getting Started..." section at the bottom of the Home page.  Why: Testing showed that users both had some difficulty getting started in a quick way, and also needed a quick over-view to what the project is all about.
+*Created the UI for Instant Messaging Buddy List floating window.  The UI mimics AOLs Instant Messenger program (AIM).  Simplified AIM user-interface by getting rid of extraneous options in order to make the UI clearer and to make implementation easier.
+*Over-hauled "Add Members" and "Select Member Roles" steps of the New Writeable Web to make them clearer.  Why: Testing showed that users had trouble with the "Add Members" step because the tree-widget to select user-names was non-standard.  Also simplified the number of roles available.
+*Added new steps for New Writeable Web Wizard to define description for site and also to define how you want to handle visitors and new members.  Why: The description is needed to show to people that would like to join the site.  The new step for handling visitors and new members was to make this concept easier than the older wizard; handling new members itself was something I over-looked in the older UI.
+*Began work on over-hauling the toolbar to match how AOL works.  Why: Usablility testing has shown that user's just don't see the Edit button.  Making the UI look too much like IE actually prevents user's from taking a look at the toolbar because they assume they automatically know what's on it.  The AOL toolbar has multicolored areas that brings the eye to the toolbar much better, which will hopefully cause the user to look at the toolbar.  The work done so far on this is to banish the large browser icons (Back, Forward, Up, Reload, Stop, and Home) to smaller icons on the Address bar.
+*Changed the term DocuBoard to Writeable Web Site.
+

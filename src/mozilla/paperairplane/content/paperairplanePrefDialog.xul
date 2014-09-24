@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://googlebar/content/skin/default.css" type="text/css"?>
+<?xul-overlay href="chrome://communicator/content/communicatorOverlay.xul"?>
+<?xul-overlay href="chrome://communicator/content/pref/platformPrefOverlay.xul"?>
+
+<dialog id="paperairplanePrefDialogue"
+        flex="1"
+        ondialogaccept="saveSettings();"
+        onload="loadSettings();"
+        title="Paper Airplane"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+<stringbundle id="compact-bundle_prefutilities" src="chrome://browser/locale/pref/prefutilities.properties"/>
+
+<script type="application/x-javascript" src="chrome://global/content/globalOverlay.js"/>
+
+<!-- Based on googlebar.mozdev.org's content/googlebar/googlebarPrefDialog.xul, Brad Neuberg, bkn3@columbia.edu -->
+
+<script type="application/x-javascript">
+  <![CDATA[
+
+    var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+                                .getService(Components.interfaces.nsIPrefService);
+
+    var compact_prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                                  .getService(Components.interfaces.nsIPrefService).getBranch("paperairplane.");
+
+    function loadSettings()
+    {
+        var frameDoc;
+
+		// when we implement this, actually grab the values out of the frame's and use these
+		// to see the preference services values.  I commented out examples from googlebar that
+		// we can use for our own preferences. -- Brad Neuberg, bkn3@columbia.edu
+
+        frameDoc = document.getElementById('general-settings-frame').contentDocument;
+        //frameDoc.getElementById('contextmenuoption').checked = compact_prefs.getBoolPref("contextmenuoption");
+
+        frameDoc = document.getElementById('browsing-settings-frame').contentDocument;
+        //frameDoc.getElementById('ActionNone').value = compact_prefs.getCharPref("ActionNone");
+        //frameDoc.getElementById('ActionCtrl').value = compact_prefs.getCharPref("ActionCtrl");
+        //frameDoc.getElementById('ActionAlt').value = compact_prefs.getCharPref("ActionAlt");
+        //frameDoc.getElementById('ActionShift').value = compact_prefs.getCharPref("ActionShift");
+        //frameDoc.getElementById('hotkeySelectionToggles').checked = compact_prefs.getBoolPref("hotkeySelectionToggles");
+
+        frameDoc = document.getElementById('editing-settings-frame').contentDocument;
+        //frameDoc.getElementById('country2Search').value = compact_prefs.getIntPref("country2Search");
+        //frameDoc.getElementById('searchoption').checked = compact_prefs.getBoolPref("searchoption");
+
+        frameDoc = document.getElementById('p2p-settings-frame').contentDocument;
+        //frameDoc.getElementById('historyoption').checked = compact_prefs.getBoolPref("historyoption");
+        //frameDoc.getElementById('maxHistCnt').value = compact_prefs.getIntPref("maxHistCnt");
+        //frameDoc.getElementById('savelastoption').checked = compact_prefs.getBoolPref("savelastoption");
+        //frameDoc.getElementById('hidemenuoption').checked = compact_prefs.getBoolPref("hidemenuoption");
+        //frameDoc.getElementById('querystringoption').checked = compact_prefs.getBoolPref("querystringoption");
+    }
+
+    function saveSettings()
+    {
+        var frameDoc;
+
+		// when we implement this, actually grab the values out of the frame's and use these
+		// to see the preference services values.  I commented out examples from googlebar that
+		// we can use for our own preferences. -- Brad Neuberg, bkn3@columbia.edu
+
+        frameDoc = document.getElementById('general-settings-frame').contentDocument;
+        //compact_prefs.setBoolPref("contextmenuoption", frameDoc.getElementById('contextmenuoption').checked);
+
+        frameDoc = document.getElementById('browsing-settings-frame').contentDocument;
+        //compact_prefs.setCharPref("ActionNone", frameDoc.getElementById('ActionNone').value);
+        //compact_prefs.setCharPref("ActionCtrl", frameDoc.getElementById('ActionCtrl').value);
+        //compact_prefs.setCharPref("ActionAlt", frameDoc.getElementById('ActionAlt').value);
+        //compact_prefs.setCharPref("ActionShift", frameDoc.getElementById('ActionShift').value);
+        //compact_prefs.setBoolPref("hotkeySelectionToggles", frameDoc.getElementById('hotkeySelectionToggles').checked);
+
+        frameDoc = document.getElementById('editing-settings-frame').contentDocument;
+        //compact_prefs.setIntPref("country2Search", frameDoc.getElementById('country2Search').value);
+        //compact_prefs.setBoolPref("searchoption", frameDoc.getElementById('searchoption').checked);
+
+        frameDoc = document.getElementById('p2p-settings-frame').contentDocument;
+        //compact_prefs.setBoolPref("historyoption", frameDoc.getElementById('historyoption').checked);
+        //compact_prefs.setIntPref("maxHistCnt", frameDoc.getElementById('maxHistCnt').value);
+        //compact_prefs.setBoolPref("savelastoption", frameDoc.getElementById('savelastoption').checked);
+        //compact_prefs.setBoolPref("hidemenuoption", frameDoc.getElementById('hidemenuoption').checked);
+        //compact_prefs.setBoolPref("querystringoption", frameDoc.getElementById('querystringoption').checked);
+
+        return true;
+    }
+
+  ]]>
+</script>
+
+<tabbox>
+  <tabs>
+    <tab label="Paper Airplane"/>
+    <tab label="Browsing"/>
+    <tab label="Editing"/>
+    <tab label="Peer-to-Peer"/>
+  </tabs>
+  <tabpanels>
+    <tabpanel>
+      <iframe id="general-settings-frame" src="chrome://paperairplane/content/pref/pref-general-settings.xul" minwidth="600" minheight="400" flex="1"/>
+    </tabpanel>
+    <tabpanel>
+      <iframe id="browsing-settings-frame" src="chrome://paperairplane/content/pref/pref-browsing-settings.xul" flex="1"/>
+    </tabpanel>
+    <tabpanel>
+      <iframe id="editing-settings-frame" src="chrome://paperairplane/content/pref/pref-editing-settings.xul" flex="1"/>
+    </tabpanel>
+    <tabpanel>
+      <iframe id="p2p-settings-frame" src="chrome://paperairplane/content/pref/pref-p2p-settings.xul" flex="1"/>
+    </tabpanel>
+  </tabpanels>
+</tabbox>    
+
+</dialog>

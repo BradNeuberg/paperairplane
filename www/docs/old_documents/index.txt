@@ -1,0 +1,327 @@
+Creating Indexes
+----------------
+
+Our Hypothetical Site: Acme.company
+-----------------------------------
+
+Doing Business in Bangkok by Michael Eakes
+	type: Proposal template
+		special fields: audience, proposal description,
+		why proposal, steps to implement proposal, department,
+		organization
+	modified by: Brad Neuberg
+	concerning: everyone
+	keywords: new business, south-east asia, proposal
+
+Comments on "Doing Business in Bangkok"
+	3 comments
+	1st comment - Christoper Tse - "Against", "Environment", subject, date
+	2nd comment - Laurent Vascilescu - "Brainstorm", subject, date
+	3rd comment - Susan Kassin - reply to Chris's post - "Agree", subject, date
+
+Bangkok Expansion Project by Brad Neuberg
+	type: Project template
+	special fields: project members, department,
+	project goal, milestones, status, tasks, deliverables
+	concerning/members: Brad Neuberg, Ryan Blum
+	modified by: Susan Kassin
+	keywords: project, bangkok, south-east asia
+
+Status Report for April 22, 2002 for Ryan Blum
+	type: Status Report
+	concerning: Ryan Blum
+	special fields: who, department, project, tasks
+
+Status Report for April 22, 2002 for Brad Neuberg
+	type: Status Report
+	concerning: Brad Neuberg
+	special fields: same
+
+Purcase Order for Susan Kassin
+	type: Purchase Order
+	concerning: Susan Kassin
+	special fields: address, items purchased, customer
+
+Welcome to Acme.company! by Brad Neuberg
+	type: Welcome page
+	special fields: 
+	modified by Michael Eakes and Christoper Tse
+
+
+
+
+Index for Hypothetical Site
+---------------------------
+
+underscores around something, such as _Click Me_, means a hyperlink.
+
+about member.  See individual member name.
+against
+	_We Should Avoid Bangkok_
+agree
+	_Re: We Should Avoid Bangkok_
+author, by.  See invidual member name.
+avoid
+	_We Should Avoid Bangkok_
+	_Re: We Should Avoid Bangkok_
+Bangkok
+	_Doing Business in Bangkok_
+	_Re: We Should Avoid Bangkok_
+	_Steps to Establishing Business in Bangkok_
+_Bangkok Expansion Project_
+Blum, Ryan
+	_about_
+	concerning
+		_Bangkok Expansion Project_
+		_Doing Business in Bangkok_
+		_Status Report for April 22, 2002 for Ryan Blum_
+	_contact_
+	changes by			
+	comments by
+	pages by
+		_Status Report for April 22, 2002 for Ryan Blum_
+brainstorm
+	_Steps to Establishing Business in Bangkok_
+business
+	_Doing Business in Bangkok_
+	_Steps to Establishing Business in Bangkok_
+changes by.  See individual member name.
+contact member.  See individual member name.
+comments about. (copy all comment keywords here)
+	against
+	agree
+	brainstorm
+	environment
+comments by.  See invididual member name.
+_Doing Business in Bangkok_
+date created, by
+	Today
+		_Status Report for April 22, 2002 for Ryan Blum_
+		_Status Report for April 22, 2002 for Brad Neuberg_
+	April 10, 2002
+		_Acme.company_
+		_Welcome to Acme.company!_
+	April 15, 2002
+		_Doing Business in Bangkok_
+		_We Should Avoid Bangkok_
+		_Steps to Establishing Business in Bangkok_
+		_Re: We Should Avoid Bangkok_
+	April 17, 2002
+		_Bangkok Expansion Project_
+	April 20, 2002
+		_Purchase Order for Susan Kassin_
+date changed, by
+	Today
+	April 11, 2002
+		_Welcome to Acme.company!_
+	April 12, 2002
+		_Welcome to Acme.company!_
+	April 16, 2002
+		_Doing Business in Bangkok_
+	April 17, 2002
+		_Bangkok Expansion Project_	
+Eakes, Michael
+	_about_
+	concerning
+		_Doing Business in Bangkok_
+	_contact_
+	changes by
+		_Welcome to Acme.company!_			
+	comments by
+	pages by
+		_Doing Business in Bangkok_
+environment
+	_We Should Avoid Bangkok_
+establishing
+	_Steps to Establishing Business in Bangkok_
+expansion
+	_Bangkok Expansion Project_
+Member, view content by.  See individual member name.
+	Eakes, Michael (jumps to specific Michael Eakes section)
+	Neuberg, Brad
+	Kassin, Susan
+	Tse, Christoper
+	Vascilescu, Laurent
+Neuberg, Brad
+	_about_
+	concerning
+		_Bangkok Expansion Project_
+		_Doing Business in Bangkok_
+		_Status Report for April 22, 2002 for Brad Neuberg_		
+	_contact_
+	changes by
+		_Doing Business in Bangkok_
+	comments by
+	pages by
+		_Bangkok Expansion Project_
+		_Status Report for April 22, 2002 for Brad Neuberg_
+		_Welcome to Acme.company!_
+new business
+	_Doing Business in Bangkok_
+Kassin, Susan
+	_about_
+	concerning
+		_Doing Business in Bangkok_
+	_contact_
+	changes by
+	comments by
+	pages by
+pages by.  See individual member name.
+Proposals 
+	_Doing Business in Bangkok_
+Projects
+	_Bangkok Expansion Project_
+Purchase Orders
+	_Purchase Order for Susan Kassin_
+_Purchase Order for Susan Kassin_
+_Re: We Should Avoid Bangkok_
+South-East Asia
+	_Doing Business in Bangkok_
+Status Reports
+	_Status Report for April 22, 2002 for Ryan Blum_
+	_Status Report for April 22, 2002 for Brad Neuberg_
+_Status Report for April 22, 2002 for Ryan Blum_
+_Status Report for April 22, 2002 for Brad Neuberg_
+steps
+	_Steps to Establishing Business in Bangkok_
+_Steps to Establishing Business in Bangkok_
+subject, by. See individual subject.
+title, by. See individual title.
+Tse, Christoper
+	_about_
+	concerning
+		_Doing Business in Bangkok_
+		_Re: We Should Avoid Bangkok_ 
+	_contact_
+	changes by
+	comments by
+	pages by
+_We Should Avoid Bangkok_
+Welcome Pages
+	_Welcome to Acme.company!_
+_Welcome to Acme.company!_
+Vascilescu, Laurent
+	_about_
+	concerning
+		_Doing Business in Bangkok_
+	_contact_
+	changes by
+	comments by
+	pages by
+
+
+
+Types of Index Entries
+----------------------
+
+*by type (List of Proposals, List of Purchase Orders, etc.)
+*by what author has authored (comments, changes, and pages created)
+*by special author things (about, contact, concerning)
+*Redirects for members (about member, comments by member, contact member, changes by member, pages by member) - tells user to go to invidiual member name
+*Redirects for comments (comments about) - shows all comment keywords; when keyword is clicked on, user is taken to another place with that keyword broken out
+*by generic metadata (Dublin Core - by Date created, by date modified, by title, by subject, by author)
+*by keyword fields (3 can be given)
+*by the words in the title of a page or subject of a comment (stemmed and commons stripped, though)
+*by special fields own special rules (purchased by, address, etc.) - Actually, not for this release.  This is pretty hard to define both on a UI level and during programming on a field by field type level. Next version! :)
+*by the 'type' of comments (for, against, environment, brainstorm, etc.)
+
+
+
+Important Notes
+--------------
+
+Individual Smart Templates will want to be able to control indexing information, especially affecting individual types of RDF info.  They will also want to over-ride the default name given to a new document of that type (ex: Status Report for Employee), and be able to autofill and change that name as the editing process continues (Status Report for Susan Kassin after Employee name filled out).
+
+Certain special categories will need to be able to have control over how things are listed (they may not be alphabetically); this is true for viewing pages by date created, for example.
+
+Add subject field to all templates, or maybe "Keywords" where you can only enter three kinds of keywords.
+
+Screen keywords to make sure they don't repeat (i.e. someone uses the keyword 'proposal' when that already lists all proposals - could be hard).
+
+The concerning field can say everyone or all; this will automatically put this entry under the 'concerning' part of each person.  Also, if anyone replies to a comment you made, then the Re:s will go under your concerning.
+
+If an entry made by some special fields is clicked on (such as project name), then browser jumps right to that page AND right to that field, like an anchor.
+
+If someone types "Ryan Blum" (or firstname lastname pair) into the Index find box, it should 'figure' this out after you have typed the whole name (this might be too hard, or too slow).
+
+
+Scratchpad for breaking out titles and subject keywords to help me on index
+--------------
+
+by title and subject-
+
+Business
+Bangkok
+Expansion
+Avoid
+Steps
+Establishing
+
+
+
+by keyword - 
+
+bangkok
+south-east asia
+new business
+
+
+
+by comment keyword - 
+
+against
+brainstorm
+environment
+agree
+
+
+
+
+Index with nothing open
+----------------------------------
+
+about member.  See individual member name.
+against
+agree
+author, by.  See invidual member name.
+avoid
+Bangkok
+_Bangkok Expansion Project_
+Blum, Ryan
+brainstorm
+business
+changes by.  See individual member name.
+contact member.  See individual member name.
+comments about.
+comments by.  See invididual member name.
+_Doing Business in Bangkok_
+date created, by
+date changed, by
+Eakes, Michael
+environment
+establishing
+expansion
+Member, view content by.  See individual member name.
+Neuberg, Brad
+new business
+Kassin, Susan
+pages by.  See individual member name.
+Proposals 
+Projects
+Purchase Orders
+_Purchase Order for Susan Kassin_
+_Re: We Should Avoid Bangkok_
+South-East Asia
+Status Reports
+_Status Report for April 22, 2002 for Ryan Blum_
+_Status Report for April 22, 2002 for Brad Neuberg_
+steps
+_Steps to Establishing Business in Bangkok_
+subject, by. See individual subject.
+title, by. See individual title.
+Tse, Christoper
+_We Should Avoid Bangkok_
+Welcome Pages
+_Welcome to Acme.company!_
+Vascilescu, Laurent
+

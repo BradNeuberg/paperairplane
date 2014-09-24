@@ -1,0 +1,10 @@
+Short-Term To-Do
+----------------
+*Completely over-haul the Sidebar:
+	*Add folder tabs top the top of the left sidebar that say "Main", "Search", "Index", "Members", and "What's New."
+	*Banish "What's Related" and "What's Important" as features from this release by removing them from the sidebar.  Why: since we're moving all Tools as little tabs now on the sidebar, we need to make room and minimize UI real-estate; also, getting rid of these features will help make implementation easier.
+	*Get rid of the Tools blue box, which now has a list of tools under it, such as Search, Index, Members, etc.  This will be replaced as folder tabs that are on the top of the left-sidebar; these will be "Search, Index, Members, 
+*Add new small icon on the Address Bar that looks like a Front Door, which when pressed will take you to the Front Door of the current page (What is called the Start page now).  Why: Makes it easy to jump to the front page of a site.
+*Change the first page you encounter on a new site from "Start" to "Front".
+*Break the cookie-trail into its own color-coded box.  Why: Visually distinguish it from the white-background now used for a page's contents.
+*User test the New Writeable Web Wizard!

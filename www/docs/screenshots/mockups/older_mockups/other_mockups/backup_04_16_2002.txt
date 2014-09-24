@@ -1,0 +1,33 @@
+Backup for April 16, 2002
+-------------------------
+
+Changes:
+--------
+*Finished Members panel. To do: need two small icons for "Authorizing a New Member" and "Adding Member to Buddy List".
+*Added screenshots showing how Members can be looked up based on email, name, number, etc. on the Members panel.  Why: In one shot this is now an employee directory for companies, which is a powerful incentive to use Writeable Web, including the instant messaging functionality.  Studies show that most people use corporate intranets basicly for searching around the employee directory!
+*Finished What's New panel.
+*Added several new task dividers.  "First Time Browser Started," which is meant to show the Registration Wizard; "Logging in," which shows the user logging into the browser, the browser contacting the peer network, and the browser indicating the user's presence; "Sharing," which shows changing the sharing characteristics of a site after it has already been created by clicking the Sharing button on the big toolbar; and "Configuration," which shows the central configuration dialog for setting browsing properties, instant messaging properties, P2P properties, and office suite properties.
+
+
+Short-Term Targets (One to Two Days) (New items)
+------------------------------------
+*Edit home page intro text a bit
+*Finish all panel business (Members, What's New, What's Related, etc.)
+*Possibly have meeting with potential illustrator on Monday; Hoang, are you interested in interviewing illustrator as well?
+NEW *Do pulldowns on What's New panel for the filter.  There are two pulldowns: View "Everything" that is new from "Today", where the quotes are around each pulldown.  This lets you filter both based on type (pages, page templates, new members, etc.) and based on date (Today, Yesterday, Last 3 days, Last Week, Last 2 Weeks, Last Month, etc.)
+NEW *Modify Buddy List to work how the Buddy List on the Members panel works (shouldn't be too hard).
+NEW *I'd like to move to issuing all change files and documents in OpenOffice format.  Why: I can highlight and bold new stuff, and it also forces me to get intimately familiar with OpenOffice's features, which is important since it is the core of Writeable Web.
+
+A Few Outstanding Issues (Changed items)
+------------------------
+*The Buddy List obscures the home page intro text.  I want the Buddy List to come up when the user first starts the program, so that they can see that instant messaging is a part of the program; I also need the info text to excite and inform the user.  How to solve?  Turning the home page intro text into an info graphic might solve issue.
+*The Buddy List never shows what it looks like when members on the list are on or off the list; what do their entries in the list look like when this happens?
+*Templates, templates, templates, templates.  Figure out the list of what to include and what they look like now, or push them out late into development?
+*I have an _old_ list of what is in all the pull-down menus, built out of Mozilla's XUL actually; need to revise and include as an entry in the screenshots file.
+*Will user's be annoyed having to move their cursor to the bottom of the screen to access the edit buttons and edit controls during edit mode?  Also, if you press one of the pull-down menus at the bottom of the screen, such as the Font pulldown, then it will pop 'up' instead of down, which might be annoying.
+CHANGE *What about the UI to authorize a new user, including notification that a new user wants to join as well as well as an editor doing the actual authorization (this functionality disappeared when I simplified the Front Page of writeable web sites and got rid of areas; how to solve issue?)
+	POSSIBLE SOLUTION - Here's what happens in the UI I implemented on the Members panel.  A user can join a website somehow (this ui isn't there yet).  Then, in the Members panel are three groups: "New Members", "Members", and "Visitors".  Members that haven't been authorized yet are in the New Members group.  You have to click on the member's name and click the "Authorize New Member" icon to authorize the new member.
+*Really need to implement the UI for Joining and Unjoining a writeable web site.
+
+Notes:
+------

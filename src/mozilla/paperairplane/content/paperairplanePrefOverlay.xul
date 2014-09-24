@@ -1,0 +1,40 @@
+<?xml version="1.0"?> 
+
+<overlay id="paperairplanePrefOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <treechildren id="panelChildren" container="true">
+
+    <treeitem container="true" id="paperairplaneItem" insertbefore="advancedItem">
+        <treerow>
+            <treecell url="chrome://paperairplane/content/pref/pref-general-settings.xul" 
+		          label="Paper Airplane"/>
+        </treerow>
+      <treechildren id="googlebarChildren">
+        <treeitem>
+          <treerow>
+            <treecell class="treecell-indent" 
+                      url="chrome://paperairplane/content/pref/pref-browsing-settings.xul" 
+                      label="Browsing" />
+          </treerow>
+        </treeitem>
+        <treeitem>
+          <treerow>
+            <treecell class="treecell-indent" 
+                       url="chrome://paperairplane/content/pref/pref-editing-settings.xul" 
+                       label="Editing" />
+          </treerow>
+        </treeitem>
+        <treeitem>
+          <treerow>
+            <treecell class="treecell-indent" 
+                       url="chrome://paperairplane/content/pref/pref-p2p-settings.xul" 
+                       label="Peer-to-Peer" />
+          </treerow>
+        </treeitem>
+      </treechildren>
+
+    </treeitem>
+  </treechildren>
+
+</overlay>

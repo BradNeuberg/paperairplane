@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<project name="PaperAirplane-common" default="all" basedir=".">
+
+  <!-- ==================================================================== -->
+  <!-- This file stores information in an external file, so that apps       -->
+  <!-- that use Paper Airplane can import this file                         -->
+  <!-- without having to encode all the info themselves.					-->
+  <!-- ==================================================================== -->
+
+  <!-- ==================================================================== -->
+  <!-- Note: You must define "env" and "paperairplane_home" before          -->
+  <!-- including this common ANT file, and have imported P2P Sockets		-->
+  <!-- build_common.xml file.												-->
+  <!-- ==================================================================== -->
+
+	<property name="paperairplane.dist.dir"                     value="${paperairplane_home}/dist"/>
+	<property name="paperairplane.dist.classes"                 value="${paperairplane.dist.dir}/classes"/>
+	<property name="paperairplane.dist.lib"                     value="${paperairplane.dist.dir}/lib"/>
+	<property name="paperairplane.dist.tests"                   value="${paperairplane.dist.dir}/tests"/>
+	<property name="paperairplane.dist.mozilla"                 value="${paperairplane.dist.dir}/mozilla"/>
+	<property name="paperairplane.dist.wars"                    value="${paperairplane.dist.dir}/wars"/>
+    <property name="paperairplane.dist.webapp"                  value="${paperairplane.dist.dir}/webapp"/>
+	 
+	<property name="paperairplane.docs.dir"                     value="${paperairplane_home}/www/docs"/>
+	<property name="paperairplane.docs.javadoc"                 value="${paperairplane.docs.dir}/javadoc"/>		
+	
+	<property name="paperairplane.src.dir"                      value="${paperairplane_home}/src"/>
+	<property name="paperairplane.src.java"                     value="${paperairplane.src.dir}/java"/>
+	<property name="paperairplane.src.tests"                    value="${paperairplane.src.dir}/tests"/>
+	<property name="paperairplane.src.jsp"                      value="${paperairplane.src.dir}/jsp"/>
+	<property name="paperairplane.src.ie"                       value="${paperairplane.src.dir}/ie"/>
+	<property name="paperairplane.src.mozilla"                  value="${paperairplane.src.dir}/mozilla"/>
+	<property name="paperairplane.src.jspwiki"                  value="${paperairplane.src.dir}/jspwiki"/>
+
+	<property name="paperairplane.www.dir"                      value="${paperairplane_home}/www"/>
+
+	<property name="paperairplane.lib.dir"						value="${paperairplane_home}/lib"/>
+
+	<property name="paperairplane.releases"			    		value="${paperairplane.www.dir}/releases"/>
+	<property name="paperairplane.releases.stable"              value="${paperairplane.releases}/stable"/>
+	<property name="paperairplane.releases.unstable"            value="${paperairplane.releases}/unstable"/>
+	<property name="paperairplane.releases.older"               value="${paperairplane.releases}/older"/>
+	<property name="paperairplane.releases.dependencies"        value="${paperairplane.releases}/dependencies"/>
+
+	<property name="paperairplane.lib.dir"                      value="${paperairplane_home}/lib"/>	
+
+	<property name="paperairplane.taskbar.images.dir"           value="${paperairplane.src.java}/org/paperairplane/taskbar/images"/>
+  
+	<property name="jspwiki.lib.dir"                            value="${paperairplane.src.jspwiki}/WEB-INF/lib"/>
+	
+	<!-- Our generated WAR and JAR files -->
+	<property name="JSPWiki.war"                                value="${paperairplane.dist.wars}/JSPWiki.war"/>
+	<!-- FIXME: Technically we shouldn't be writing this file into the lib directory, but if we don't we
+   		 get errors from the Jasper task.  We should be able to use it when compiling our JSPs from
+		 dist/lib but don't have time to get that working. -->
+	<property name="JSPWiki.jar"								value="${paperairplane.lib.dir}/JSPWiki.jar"/>
+	<property name="PaperAirplane.war"                          value="${paperairplane.dist.wars}/PaperAirplane.war"/>
+	<property name="paperairplane.jar"							value="${paperairplane.dist.lib}/paperairplane.jar"/>
+	<property name="paperairplane-chrome.jar"					value="${paperairplane.dist.mozilla}/paperairplane-chrome.jar"/>
+
+  <!-- ==================================================================== -->
+  <!-- Environment variables needed to locally install and run Mozilla      -->
+  <!-- ==================================================================== -->
+
+	<property name="mozilla_home"                               value="${env.mozilla_home}"/>
+	<property name="mozilla_executable"                         value="${env.mozilla_executable}"/>
+	<property name="mozilla_profile_home"                       value="${env.mozilla_profile_home}"/>
+	
+	<!-- The location in our Mozilla profile directory where we store our JAR files -->
+	<property name="mozilla_profile_lib"                        value="${mozilla_profile_home}/components/paperairplane-libs"/>
+	<!-- The location in our Mozilla profile directory where we store our chrome files -->
+	<property name="mozilla_profile_chrome"                     value="${mozilla_profile_home}/chrome"/>
+
+  <!-- ==================================================================== -->
+  <!-- Paths                                                                -->
+  <!-- ==================================================================== -->
+  
+    <path id="paperairplane.build-classpath"> 
+
+		<!-- Tomcat 5.5.4 libs -->
+		<fileset dir="${paperairplane.lib.dir}/tomcat">
+        	<include name="**/*.jar"/>
+      	</fileset>
+
+		<!-- P2P Sockets libs -->
+		<path refid="p2psockets.build-classpath"/>
+
+		<!-- Paper Airplane libs -->
+		<pathelement location="${paperairplane.jar}"/>
+		<fileset dir="${paperairplane.lib.dir}">
+        	<include name="**/*.jar"/>
+      	</fileset>
+
+		<!-- JSPWiki libs -->
+		<fileset dir="${jspwiki.lib.dir}">
+        	<include name="**/*.jar"/>
+      	</fileset>
+      	
+		<!-- Dirs -->
+        <pathelement location="${paperairplane.dist.classes}"/>
+        <pathelement location="${paperairplane.dist.mozilla}"/>
+        <pathelement location="${paperairplane.dist.tests}"/>
+	    <pathelement location="${paperairplane.dist.wars}"/>
+        <pathelement location="${paperairplane.src.java}"/>
+        <pathelement location="${paperairplane.src.tests}"/>
+        <pathelement location="${paperairplane.dist.webapp}/WEB-INF/classes"/>
+        
+		<!-- Java libs -->
+		<pathelement location="${java_home}/lib/tools.jar"/> 
+  	</path>  		
+</project>		

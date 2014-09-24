@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>UI Testing Form</title>
+</head>
+<body>
+<script>
+<!--
+// the description that we build up from the failed tests
+var descriptionMessage = new String();
+
+// This method goes through each of the tests and sees if any
+// failed; it then creates a description and posts a bug report.
+// This is the top-level, public method that should be called to
+// process and post the test results 
+function processResults() {
+  if (validateForm() == false) {
+    return false;
+  }
+
+  setSummary();
+
+  removeCustomFields();
+  rearrangeFields();
+
+  return true;
+}
+
+// Ensures that required values have been entered
+function validateForm() {
+  if (getReporterField() == "") {
+    alert("You must enter your name in the Reporter field");
+    return false;
+  }
+  else if (getBrowserField() == "") {
+    alert("You must enter the browser name and version");
+    return false;
+  }
+  else if (getDateField() == "") {
+    alert("You must enter the date when you performed this UI test");
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+function getReporterField() {
+  return document.getElementById("reporter").value;
+}
+
+function getBrowserField() {
+  return document.getElementById("browser").value;
+}
+
+function getDateField() {
+  return document.getElementById("date").value;
+}
+
+// Sets the summary field
+function setSummary() {
+  var summary = getSummary();
+  var summaryField = document.getElementById("short_desc");
+
+  summaryField.value = summary;
+} 
+
+// Generates a summary string from the reporter, browser, and date 
+function getSummary() {
+  return "Some UI tests failed for " + getReporterField() + " using " 
+         + getBrowserField() + " on " + getDateField();
+}
+
+// Removes any custom fields we added that the normal SourceCast Issuezilla doesn't
+// know about; these were causing problems if we left them in
+function removeCustomFields() {
+  var browserField = document.getElementById("browser");
+  var dateField = document.getElementById("date");
+  
+  browserField.parentNode.removeChild(browserField);
+  dateField.parentNode.removeChild(dateField);
+}
+
+// the post_bugs.cgi script seems to depend on the order of the fields,
+// so in this method we rearrange the fields to be exactly the same as the
+// original HTML of the bug submission form
+function rearrangeFields() {
+  var reporter, component, version, subcomponent, rep_platform, 
+      op_sys, priority, issue_type, assigned_to, cc, issue_file_loc, 
+      short_desc, comment, form_name;
+
+  var formElement = document.getElementById("TestForm");
+
+  reporter = document.getElementById("reporter");
+  reporter.parentNode.removeChild(reporter);
+
+  component = document.getElementById("component");
+  component.parentNode.removeChild(component);
+
+  version = document.getElementById("version");
+  version.parentNode.removeChild(version);
+
+  subcomponent = document.getElementById("subcomponent");
+  subcomponent.parentNode.removeChild(subcomponent);
+
+  rep_platform = document.getElementById("rep_platform");
+  rep_platform.parentNode.removeChild(rep_platform);
+
+  op_sys = document.getElementById("op_sys");
+  op_sys.parentNode.removeChild(op_sys);
+
+  priority = document.getElementById("priority");
+  priority.parentNode.removeChild(priority);
+
+  issue_type = document.getElementById("issue_type");
+  issue_type.parentNode.removeChild(issue_type);
+
+  assigned_to = document.getElementById("assigned_to");
+  assigned_to.parentNode.removeChild(assigned_to);
+
+  cc = document.getElementById("cc");
+  cc.parentNode.removeChild(cc);
+
+  issue_file_loc = document.getElementById("issue_file_loc");
+  issue_file_loc.parentNode.removeChild(issue_file_loc);
+
+  short_desc = document.getElementById("short_desc");
+  short_desc.parentNode.removeChild(short_desc);
+
+  comment = document.getElementById("comment");
+  comment.parentNode.removeChild(comment);
+
+  form_name = document.getElementById("form_name");
+  form_name.parentNode.removeChild(form_name);
+
+  formElement.appendChild(reporter);
+  formElement.appendChild(component);
+  formElement.appendChild(version);
+  formElement.appendChild(subcomponent);
+  formElement.appendChild(rep_platform);
+  formElement.appendChild(op_sys);
+  formElement.appendChild(priority);
+  formElement.appendChild(issue_type);
+  formElement.appendChild(assigned_to);
+  formElement.appendChild(cc);
+  formElement.appendChild(issue_file_loc);
+  formElement.appendChild(short_desc);
+  formElement.appendChild(comment);
+  formElement.appendChild(form_name);
+
+alert("before: " + document.cookie);
+  var generatedID = "7BF5222DA5571ECB9A77AD248AE61986";
+  document.cookie += "; JSESSIONID=" + generatedID;
+alert("after: " + document.cookie);
+}
+
+-->
+</script>
+<form id="TestForm" method="post"
+ action="http://paperairplane.dev.java.net/issues/post_bug.cgi">
+  <table cellspacing="2" cellpadding="0" border="0">
+    <tbody>
+      <tr>
+        <td align="right" valign="top" class="StatText"><b> Reporter: </b> </td>
+        <td valign="top" class="PlainText"> <input id="reporter"
+ name="reporter"><input id="component" type="hidden" name="component"
+ value="paperairplane"><input id="cc" type="hidden" name="cc" value=""><input
+ id="assigned_to" type="hidden" name="assigned_to" value=""><input
+ id="subcomponent" type="hidden" name="subcomponent" value="program"> <input
+ id="priority" type="hidden" name="priority" value="P3"> <input
+ id="issue_type" type="hidden" name="issue_type" value="DEFECT"> <input
+ type="hidden" id="short_desc" name="short_desc"> <input id="comment"
+ type="hidden" name="comment" value="test"><input id="form_name"
+ type="hidden" name="form_name" value="enter_issue"></td>
+        <td align="right" valign="top" class="StatText"><b> Date: </b> </td>
+        <td valign="top" class="PlainText"> <input id="date" name="date"></td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap" align="right" valign="top" class="StatText"> <b>Paper
+Airplane Version: </b> </td>
+        <td>
+        <select id="version" name="version" size="5">
+        <option selected="selected" value="current">current</option>
+        </select>
+        <input id="issue_file_loc" type="hidden" name="issue_file_loc" value="http://"> </td>
+        <td align="right" valign="top" class="StatText"><b> Browser and
+Browser Version:</b> </td>
+        <td valign="top" class="PlainText"> <input id="browser"
+ name="browser"></td>
+      </tr>
+      <tr>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap" align="right" class="StatText"> <b><a
+ href="https://www.dev.java.net/nonav/docs/ddIssues_EnterModify.html#platform"
+ onclick="return launch(this.href, 1)"
+ title="Note: link may open in new window" class="helplink">Platform:</a></b> </td>
+        <td>
+        <select id="rep_platform" name="rep_platform">
+        <option value="DEC">DEC</option>
+        <option value="HP">HP</option>
+        <option value="Macintosh">Macintosh</option>
+        <option value="Palm PDA">Palm PDA</option>
+        <option selected="selected" value="PC">PC</option>
+        <option value="SGI">SGI</option>
+        <option value="Sun">Sun</option>
+        <option value="Other">Other</option>
+        </select>
+        </td>
+        <td align="right" class="StatText"> <b><a
+ href="https://www.dev.java.net/nonav/docs/ddIssues_EnterModify.html#operatingsystem"
+ onclick="return launch(this.href, 1)"
+ title="Note: link may open in new window" class="helplink">OS:</a></b> </td>
+        <td>
+        <select id="op_sys" name="op_sys">
+        <option value="Windows 3.1">Windows 3.1</option>
+        <option value="Windows 95">Windows 95</option>
+        <option value="Windows 98">Windows 98</option>
+        <option value="Windows ME">Windows ME</option>
+        <option value="Windows 2000">Windows 2000</option>
+        <option value="Windows NT">Windows NT</option>
+        <option selected="selected" value="Windows XP">Windows XP</option>
+        <option value="Mac System 7">Mac System 7</option>
+        <option value="Mac System 7.5">Mac System 7.5</option>
+        <option value="Mac System 7.6.1">Mac System 7.6.1</option>
+        <option value="Mac System 8.0">Mac System 8.0</option>
+        <option value="Mac System 8.5">Mac System 8.5</option>
+        <option value="Mac System 8.6">Mac System 8.6</option>
+        <option value="Mac System 9.0">Mac System 9.0</option>
+        <option value="Mac OS X">Mac OS X</option>
+        <option value="Palm OS 3.x">Palm OS 3.x</option>
+        <option value="Palm OS 4.x">Palm OS 4.x</option>
+        <option value="Linux">Linux</option>
+        <option value="BSDI">BSDI</option>
+        <option value="FreeBSD">FreeBSD</option>
+        <option value="NetBSD">NetBSD</option>
+        <option value="OpenBSD">OpenBSD</option>
+        <option value="AIX">AIX</option>
+        <option value="BeOS">BeOS</option>
+        <option value="HP-UX">HP-UX</option>
+        <option value="IRIX">IRIX</option>
+        <option value="Neutrino">Neutrino</option>
+        <option value="OpenVMS">OpenVMS</option>
+        <option value="OS/2">OS/2</option>
+        <option value="OSF/1">OSF/1</option>
+        <option value="Solaris">Solaris</option>
+        <option value="SunOS">SunOS</option>
+        <option value="other">other</option>
+        </select>
+        </td>
+        <td align="right" valign="top"><br>
+        </td>
+        <td rowspan="3"><br>
+        </td>
+        <td><br>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" class="StatText"> <br>
+        </td>
+        <td colspan="5"> <br>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><br>
+        </td>
+        <td colspan="5" class="PlainText"> <br>
+        </td>
+      </tr>
+      <tr>
+        <td><br>
+        </td>
+        <td colspan="5"> <input type="submit"
+ value="Submit Test Results" onclick="return processResults();">
+&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="Reset"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+</body>
+</html>

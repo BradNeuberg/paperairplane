@@ -1,0 +1,35 @@
+Backup for April 15, 2002
+-------------------------
+
+Changes:
+--------
+*Changed Main Toolbar organization.  Broke into sections: Hide/Show buttons (Hide/Show Sidebar, Hide/Show Buddy List); New/Sharing buttons; browser controls; Address area; Help/Throbber icons.  Why: Looks better, conserves screen real-estate better, logical grouping.  Credit: Thanx to Hoang.  To do: Add tiny Front Door browser control button.
+*Added Search button next to Address bar. Why: Makes it easy to search. Credit: Thanx to Hoang. To do: What happens when you press this button?
+*Moved edit controls during edit mode to bottom of screen.  Why: Avoids the phenomenon of shifting toolbars that plagues Microsft Office.  Credit: Kudos to Hoang.
+*Added little arrows on cookie trail that appear when cookie trail gets too long.  Why: lets user scroll extra long cookie trails that would wrap otherwise.  Credit: The Hoang-meister.
+*Changed "Edit" to "Edit this Page" on cookie trail.  Why: This extra text makes it clearer what you are editing. Credit: Mr. Dinh.
+*Added sequence of screenshots showing how user can change a page's name during edit mode by simply clicking on the page-name in the cookie trail.  Why: Counteless UI studies have shown that user's don't understand File/Save dialog boxes; this is an attempt to get away from that paradigm (which is what the "Finished" button is all about as well).
+*Moved panel tabs to run vertically along the right-hand side of the sidebar instead of the top.  Why: Stylistically looks better; it is also bad UI practice to have more than one row of tabs, which is what the old design had. Credit: Thanx to Hoang.
+*Determined mechanisms of how the automated index function will work (see the file backup_index_04_15_2002.txt for details).
+*Drew the Index panel, successive screens showing scrolling through the entire index for a hypothetical site, as well as directly typing a name to jump right to that index entry.  
+
+
+Short-Term Targets (One to Two Days)
+------------------------------------
+*Edit home page intro text a bit
+*Create Graphic Design/Brand Identity & Illustration Task List
+*Finish all panel business (Members, What's New, What's Related, etc.)
+*Possibly have meeting with potential illustrator on Monday; Hoang, are you interested in interviewing illustrator as well?
+
+A Few Outstanding Issues
+-----------------------
+*The Buddy List obscures the home page intro text.  I want the Buddy List to come up when the user first starts the program, so that they can see that instant messaging is a part of the program; I also need the info text to excite and inform the user.  How to solve?  Turning the home page intro text into an info graphic might solve issue.
+*The Buddy List never shows what it looks like when members on the list are on or off the list; what do their entries in the list look like when this happens?
+*Templates, templates, templates, templates.  Figure out the list of what to include and what they look like now, or push them out late into development?
+*I have an _old_ list of what is in all the pull-down menus, built out of Mozilla's XUL actually; need to revise and include as an entry in the screenshots file.
+*Will user's be annoyed having to move their cursor to the bottom of the screen to access the edit buttons and edit controls during edit mode?  Also, if you press one of the pull-down menus at the bottom of the screen, such as the Font pulldown, then it will pop 'up' instead of down, which might be annoying.
+*What about the UI to authorize a new user, including notification that a new user wants to join as well as well as an editor doing the actual authorization (this functionality disappeared when I simplified the Front Page of writeable web sites and got rid of areas; how to solve issue?)
+
+Notes:
+------
+*While I moved the edit controls to the bottom of the screen during edit mode, I decided not to make the tools detachable.  Why: It would make the UI complex, to save on implementation time (biggest reason), and also because even if you could drag the window it is still long and narrow; maybe in a future version.

@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<project name="PaperAirplane" default="all" basedir=".">
+
+  <!-- ==================================================================== -->
+  <!-- build.xml adapted from P2P Sockets (1-13-2004).                      -->
+  <!-- Big tip o' the hat to Kevin Lahoda, who did most of the work         -->
+  <!-- structuring P2P Socket's build.xml file.                             -->
+  <!-- ==================================================================== -->
+
+  <!-- ==================================================================== -->
+  <!-- This build file was written to handle path separation issues that
+       come up when attempting to maintain build process cross-platform 
+       compatibility. While ANT is great at executing a -classpath on it's 
+       own, in order to run via -Xbootclasspath/a: you must first convert to
+       the correct classpath (; or ;) manually. In this file we took advantage
+       of the Ant-Contrib project's 'osfamily' task and then used the native
+       pathconvert to convert to the correct type of classpath for any given
+       OS. This way we avoid runscript redundancies when building and testing
+       on mulitple platforms.
+  	   
+                                  Questions or comments: bkn3@columbia.edu  -->
+  <!-- ==================================================================== -->
+  
+  <!-- ==================================================================== -->
+  <!-- set properties for this build                                        -->
+  <!-- ==================================================================== -->
+  
+	<property environment="env"/>
+
+	<property name="paperairplane_home"	value="${env.paperairplane_home}"/>
+	<property name="p2psockets_home"	value="${env.p2psockets_home}"/>
+	<property name="java_home"			value="${env.java_home}"/>
+	<property name="tomcat_home"		value="${env.tomcat_home}"/>
+	
+	<property file="${paperairplane_home}/build.properties"/>
+
+	<import file="${p2psockets_home}/build_common.xml"/>
+	<import file="${paperairplane_home}/build_common.xml"/>	   	  	  	 	  	  	  	  	
+
+	<!-- ==================================================================== -->
+	<!-- Custom Task Definitions	                                          -->
+	<!-- ==================================================================== -->
+	
+	<taskdef classname="org.apache.jasper.JspC" name="jasper2">
+		<classpath refid="paperairplane.build-classpath"/> 
+    </taskdef> 
+	
+  <!-- ==================================================================== -->
+  <!-- Init the build process	                                            -->
+  <!-- ==================================================================== -->
+  
+  	<target name="osfam">
+  		<osfamily property="os.family"/>
+        <echo message="${os.family}"/>
+  	</target>	  
+	
+	<target name="init"
+            description="Initializes everything needed for the build and distribution processes">
+		<mkdir dir="${paperairplane.dist.classes}"/>
+		<mkdir dir="${paperairplane.dist.lib}"/>
+		<mkdir dir="${paperairplane.dist.tests}"/>
+		<mkdir dir="${paperairplane.dist.mozilla}"/>
+		<mkdir dir="${paperairplane.dist.webapp}"/>
+		<mkdir dir="${paperairplane.dist.webapp}/jspwiki"/>
+		<mkdir dir="${paperairplane.dist.webapp}/paperairplane"/>
+		<mkdir dir="${paperairplane.dist.wars}"/>
+	</target>
+	
+  <!-- ==================================================================== -->
+  <!-- Build Targets        	                                            -->
+  <!-- ==================================================================== -->	
+
+	<target name="build-src" depends="init"
+		description="Compile Java source files in the directory src/java">
+		<javac	srcdir="${paperairplane.src.java}"
+				destdir="${paperairplane.dist.classes}"
+				debug="on"
+				deprecation="off">
+				<classpath refid="paperairplane.build-classpath"/> 
+		</javac>
+		<copy todir="${paperairplane.dist.classes}/org/paperairplane/taskbar/images">
+			<fileset dir="${paperairplane.taskbar.images.dir}">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build-mozilla" depends="init"
+			description="'Builds' the Mozilla chrome by copying over everything in src/mozilla into dist/mozilla">
+		<copy todir="${paperairplane.dist.mozilla}">
+			<fileset dir="${paperairplane.src.mozilla}">
+				<exclude name="jre-xpi/**"/>
+			</fileset>
+		</copy> 
+	</target>
+	
+	<target name="build-jspwiki" depends="jspwiki-jar"
+			description="Compiles all of JSPWiki's JSPs into servlets">
+		<jasper2 verbose="9"
+				 validateXml="false" 
+	             uriroot="${paperairplane.src.jspwiki}" 
+	             outputDir="${paperairplane.dist.webapp}/jspwiki" 	
+                 package="org.jspwiki"
+    			 classpath="paperairplane.build-classpath"> 
+		</jasper2>
+		<javac	srcdir="${paperairplane.dist.webapp}/jspwiki"
+				destdir="${paperairplane.dist.classes}"
+				debug="on"
+				deprecation="off">
+				<classpath refid="paperairplane.build-classpath"/> 
+		</javac>
+	</target>
+	
+	<target name="build" depends="build-src,build-jspwiki,build-mozilla"
+			description="Compile Java source files">
+	</target>
+
+	<target name="paperairplane-jar" depends="build"
+			description="Builds core Paper Airplane jar">
+		<jar	jarfile="${paperairplane.jar}" manifest="${paperairplane.lib.dir}/META-INF/MANIFEST.MF"
+				basedir="${paperairplane.dist.classes}"
+				includes="org/**" excludes="org/jspwiki/**"/>
+	</target>
+	
+	<target name="paperairplane-chrome-jar" depends="build"
+			description="Creates a JAR file with all of Paper Airplane's Mozilla chrome">
+		<jar	jarfile="${paperairplane-chrome.jar}"
+				basedir="${paperairplane.dist.dir}/mozilla"
+				excludes="install.js,install.rdf"/>
+	</target>
+	
+	<target name="jspwiki-jar" depends="init,build-src"
+			description="Builds the JSPWiki jar">
+		<jar	jarfile="${JSPWiki.jar}"
+				basedir="${paperairplane.dist.classes}"
+				includes="com/ecyrd/**,bmsi/**" excludes="org/**"/>
+	</target>
+
+	<target name="jspwiki-war" depends="init,build-jspwiki,jspwiki-jar"
+			description="Bundles together our pre-compiled JSPs for JSPWiki together into a WAR file">
+		<war destfile="${JSPWiki.war}" webxml="${paperairplane.src.jspwiki}/WEB-INF/web.xml">
+			<zipfileset dir="${paperairplane.src.jspwiki}/WEB-INF" 
+                                    includes="jspwiki.properties,jspwiki.tld"
+                                    prefix="WEB-INF"/>
+			<lib dir="${paperairplane.src.jspwiki}/WEB-INF/lib">
+			</lib>
+			<classes dir="${paperairplane.dist.classes}" includes="org/jspwiki/**"/>
+			<zipfileset dir="${paperairplane.src.jspwiki}/images" 
+				    prefix="images"/>
+			<zipfileset dir="${paperairplane.src.jspwiki}/templates/default"
+                        includes="*.css,*.js"
+                        prefix="templates/default"/>
+
+		</war>
+	</target>
+
+	<target name="jar" depends="paperairplane-jar,jspwiki-jar,jspwiki-war,paperairplane-chrome-jar"
+		description="Build all jars needed">
+	</target>
+	
+	<target name="jar-copy" depends="jar"
+			description="Copies over all the JAR dependencies that paperairplane.jar needs to run from the command line">
+		<copy todir="${paperairplane.dist.lib}">
+            <fileset dir="${paperairplane_home}/src/jspwiki/WEB-INF/lib">
+				<include name="*.jar"/>
+            	<!-- Conflicts with P2P Socket's newer version of log4j -->
+            	<exclude name="log4j.jar"/>
+			</fileset>
+			<fileset dir="${paperairplane_home}/lib">
+				<include name="*.jar"/>
+				<include name="*.dll"/>
+				<exclude name="tomcat"/>
+			</fileset>
+			<fileset dir="${paperairplane_home}/lib/tomcat">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="${p2psockets_home}/lib">
+				<include name="*.jar"/>
+				<!-- These P2P Sockets files interfere with our Tomcat files, so 
+					 exclude them -->
+				<exclude name="ant-contrib-0.6.jar"/>
+				<exclude name="ant.jar"/>
+				<exclude name="jasper-compiler.jar"/>
+				<exclude name="jasper-runtime.jar"/>
+			</fileset>
+			<fileset dir="${p2psockets.dist.lib}">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- FIXME: Right now this task needs clobber to be run first or our merged web.xml file gets
+		 merged incorrectly.  Determine why the dependencies are getting messed up so that we don't
+		 have to clobber each time. -->
+	<target name="jsp" depends="clobber,jar-copy"
+			description="Compiles all of Paper Airplane's JSPs into servlets and creates a WAR file">
+		<copy todir="${paperairplane.dist.webapp}/paperairplane">
+				<fileset dir="${paperairplane.src.jsp}">
+				</fileset>
+		</copy>
+		<mkdir dir="${paperairplane.dist.webapp}/paperairplane/WEB-INF/lib"/>
+		<copy todir="${paperairplane.dist.webapp}/paperairplane/WEB-INF/lib">
+				<fileset dir="${paperairplane.dist.lib}">
+					<!-- FIXME: Use the ${paperairplane.jar} variable here instead -->
+					<include name="paperairplane.jar"/>					
+				</fileset>
+				<fileset dir="${paperairplane.lib.dir}">
+					<include name="commons-el.jar"/>
+					<include name="jstl.jar"/>
+				</fileset>
+				<fileset dir="${paperairplane.lib.dir}/tomcat">
+					<include name="jsp-api.jar"/>
+				</fileset>
+		</copy>
+		<jasper2     verbose="9"
+					 validateXml="false" 
+		             uriroot="${paperairplane.dist.webapp}/paperairplane" 
+		             outputDir="${paperairplane.dist.webapp}/paperairplane" 	
+                     package="org.paperairplane.jsp"
+        			 classpath="paperairplane.build-classpath"
+					 webXmlFragment="${paperairplane.dist.webapp}/paperairplane/WEB-INF/generated_web.xml"> 
+		</jasper2>
+		<javac	srcdir="${paperairplane.dist.webapp}/paperairplane"
+				destdir="${paperairplane.dist.classes}"
+				debug="on"
+				deprecation="off">
+				<classpath refid="paperairplane.build-classpath"/> 
+		</javac>
+		<!-- Now merge the generated and regular web.xml files -->
+		<loadfile srcfile="${paperairplane.dist.webapp}/paperairplane/WEB-INF/web.xml" 
+				  property="loaded_web.xml">
+		  <filterchain>
+		    <headfilter lines="6"/>
+		  </filterchain>
+		</loadfile>
+		<loadfile srcfile="${paperairplane.dist.webapp}/paperairplane/WEB-INF/generated_web.xml" 
+				  property="loaded_generated_web.xml">
+		</loadfile>
+		<!-- Must have on first line of echo since no white space is allowed before XML prologue -->
+		<echo file="${paperairplane.dist.webapp}/paperairplane/WEB-INF/web.xml">${loaded_web.xml}
+			${loaded_generated_web.xml}
+			&lt;/web-app&gt;
+		</echo>
+		<!-- Now create a WAR file -->
+		<war destfile="${PaperAirplane.war}" webxml="${paperairplane.dist.webapp}/paperairplane/WEB-INF/web.xml">
+			<zipfileset dir="${paperairplane.dist.webapp}/paperairplane/WEB-INF" 
+                        includes="**"
+                        prefix="WEB-INF"/>
+			<lib dir="${paperairplane.dist.webapp}/paperairplane/WEB-INF/lib">
+			</lib>
+			<classes dir="${paperairplane.dist.classes}" includes="org/paperairplane/jsp/**"/>
+			<zipfileset dir="${paperairplane.dist.webapp}/paperairplane/common" 
+				    	prefix="common"
+						excludes="*.jsp,*.jspf"/>
+			<zipfileset dir="${paperairplane.dist.webapp}/paperairplane/new-group" 
+				    	prefix="new-group"
+						excludes="*.jsp,*.jspf"/>
+			<zipfileset dir="${paperairplane.dist.webapp}/paperairplane/register" 
+				    	prefix="register"
+						excludes="*.jsp,*.jspf"/>
+			<zipfileset dir="${paperairplane.dist.webapp}/paperairplane/signon" 
+				    	prefix="signon"
+						excludes="*.jsp,*.jspf"/>
+			<zipfileset dir="${paperairplane.dist.webapp}/paperairplane/toolbar" 
+				    	prefix="toolbar"
+						excludes="*.jsp,*.jspf"/>
+
+		</war>
+		<!-- Remove any old paperairplane/work or paperairplane/ROOT directories that were generated
+			 by the embedded Tomcat to wipe out old JSP files -->
+		<delete dir="work"/>
+		<delete dir="ROOT"/>
+	</target>
+	
+	<target name="javadoc" depends="build"
+		description="Generates JavaDoc for Paper Airplane">
+		<delete dir="${paperairplane.docs.javadoc}"/>
+		<mkdir dir="${paperairplane.docs.javadoc}"/>
+		<javadoc sourcepath="${paperairplane.src.java}" destdir="${paperairplane.docs.javadoc}"
+                         packagenames="*" author="true"
+                         version="true" windowtitle="Paper Airplane">
+                         <classpath refid="paperairplane.build-classpath"/>
+		</javadoc>		 
+	</target>
+	
+  <!-- ==================================================================== -->
+  <!-- Clobber                                                  		    -->
+  <!-- ==================================================================== -->		
+
+	<!-- FIXME: For someone reason this task can't delete the dist/lib/paperairplane.jar file now. -->
+	<target name="clobber"
+		description="Deletes old builds">
+		<delete dir="ROOT"/>
+		<delete dir="work"/>
+		<delete dir="store"/>
+		<delete dir="conf/paperairplane-tomcat"/>
+		<delete dir=".jxta"/>
+		<delete dir="${paperairplane.dist.dir}"/>
+	</target>
+	
+  <!-- ==================================================================== -->
+  <!-- Do it All                                                		    -->
+  <!-- ==================================================================== -->		
+
+	<target name="all" 
+			depends="clobber,init,build,jar,jsp,plugin,javadoc,distributable"/>
+
+  <!-- ==================================================================== -->
+  <!-- Build Mozilla's XPI for the Plugin		                		    -->
+  <!-- If 'upload' is true, upload it into CVS     							-->
+  <!-- ==================================================================== -->	
+
+	<target name="plugin" depends="clobber,jsp"
+		description="Creates an XPI file that can be seamlessly installed into Mozilla and Firebird">
+		<!-- Create both a versioned and datestamped XPI file as well as one named paperairplane.xpi -->
+		<delete file="paperairplane.xpi"/>
+		<delete file="${paperairplane.www.dir}/paperairplane.xpi"/>
+		<zip zipfile="paperairplane.xpi">
+			<zipfileset dir="${paperairplane.dist.mozilla}" includes="install.js,install.rdf"/>
+			<zipfileset dir="${paperairplane.dist.mozilla}" includes="paperairplane-chrome.jar" prefix="chrome"/>
+			<zipfileset dir="${paperairplane.dist.lib}" includes="*.jar,*.dll" prefix="components/dist/lib"/>
+			<zipfileset dir="${paperairplane.dist.wars}" includes="**" prefix="components/dist/wars"/>
+			<zipfileset dir="${paperairplane_home}/conf" includes="**" prefix="components/conf"/>
+		</zip>
+		<copy file="${paperairplane_home}/paperairplane.xpi" todir="${paperairplane.www.dir}" 
+			  overwrite="true" verbose="true"/>
+		<release destdir="www" name="paperairplane"
+                 origfile="paperairplane.xpi" ending=".xpi"
+				 home="${paperairplane_home}"/>
+		<if>
+		 <equals arg1="${upload}" arg2="true" />
+		 <then>
+		   <echo message="add -kb ${distributable-cvs-filename}"/>
+		   <cvs command="add -kb ${distributable-cvs-filename}"/>
+
+		   <echo message="add -kb www/paperairplane.xpi"/>
+		   <cvs command="add -kb www/paperairplane.xpi"/>
+
+		   <echo message="commit -m 'New binary Mozilla XPI' ${distributable-cvs-filename} www/paperairplane.xpi"/>
+		   <cvs command="commit -m 'New binary Mozilla XPI' ${distributable-cvs-filename} www/paperairplane.xpi"/>
+		 </then>
+		</if>
+	</target>
+
+  <!-- ==================================================================== -->
+  <!-- Create a Source and Binary Distributable		            		    -->
+  <!-- If 'upload' is true, upload it into CVS     							-->
+  <!-- ==================================================================== -->	
+	
+	<target name="distributable" depends="plugin,javadoc"
+		description="Creates an archive ready to post to the Paper Airplane website">
+		<delete file="distributable.zip"/>
+		<zip zipfile="distributable.zip" 
+		     basedir=".." excludes="paperairplane/www/releases/**,paperairplane/www/docs/**" 
+			 includes="paperairplane/**"/>
+		<release destdir="www" name="paperairplane"
+                         origfile="distributable.zip" ending=".zip"
+			 home="${paperairplane_home}"/>
+		<if>
+		 <equals arg1="${upload}" arg2="true" />
+		 <then>
+		   <echo message="add -kb ${distributable-cvs-filename}"/>
+		   <cvs command="add -kb ${distributable-cvs-filename}"/>
+
+		   <echo message="commit -m 'New distributable' ${distributable-cvs-filename}"/>
+		   <cvs command="commit -m 'New distributable' ${distributable-cvs-filename}"/>
+		 </then>
+		</if>	
+	</target>  	 
+
+
+  <!-- ==================================================================== -->
+  <!-- Build & Copy our Mozilla Files Locally Without Needing Installation  -->
+  <!-- ==================================================================== -->	
+
+	<target name="local-install" depends="plugin"
+		description="Locally installs Paper Airplane without needing to run the XPI installer">
+		<delete>
+			<fileset dir="${mozilla_profile_lib}" includes="*.jar"/>
+		</delete>
+		<copy todir="${mozilla_profile_lib}">
+			<fileset dir="${p2psockets.lib.dir}" includes="*.jar"/>
+			<fileset dir="${p2psockets.dist.lib}" includes="*.jar"/>
+			<fileset dir="lib" includes="*.jar"/>
+			<fileset dir="dist/lib" includes="*.jar"/>
+		</copy>
+		<delete dir="${mozilla_profile_chrome}/paperairplane"/>
+		<copy todir="${mozilla_profile_chrome}/paperairplane">
+			<fileset dir="${paperairplane.dist.mozilla}/paperairplane"/>
+		</copy>
+	</target>
+
+
+  <!-- ==================================================================== -->
+  <!-- Create Plugin, Install it Locally, and Run Firebird                  -->
+  <!-- ==================================================================== -->	
+
+	<target name="run" depends="local-install"
+		description="Locally installs Paper Airplane and starts the browser">
+		<exec executable="${mozilla_executable}" spawn="true">
+		</exec>
+	</target>
+
+        
+  <!-- ==================================================================== -->
+  <!-- Runs the Paper Airplane taskbar proxy				    -->
+  <!-- ==================================================================== -->	
+
+	<target name="start-taskbar"
+		description="Runs the Paper Airplane taskbar proxy" depends="osfam">
+		<java fork="true" classname="org.paperairplane.taskbar.PaperAirplaneTrayIcon">
+			<classpath refid="paperairplane.build-classpath"/> 
+			<arg value="8080"/>
+			<arg value="."/>
+		</java>
+	</target>
+
+  <!-- ==================================================================== -->
+  <!-- Help                                                                 -->
+  <!-- ==================================================================== -->
+  
+  <target name="help">
+    <echo message="U S A G E :"/>
+    <echo message="[clobber]"/>
+	<echo message="Delete old builds"/>
+	<echo message=""/>
+
+    <echo message="[build]"/>
+	<echo message="Compile Java, JSP, and Mozilla Source Files"/>
+	<echo message=""/>
+
+    <echo message="[jar]"/>
+	<echo message="Build the Paper Airplane jar file"/>
+	<echo message=""/>
+        
+    <echo message="[jsp]"/>
+        <echo message="Creates the Paper Airplane and JSPWiki WAR files"/>
+        <echo message=""/>
+
+    <echo message="[all]"/>
+	<echo message="Does everything: clobber,init,build,"/>
+	<echo message="jar,jsp,plugin,javadoc,distributable"/>
+	<echo message=""/>
+
+	<echo message="[plugin]"/>
+	<echo message="Builds the Paper Airplane plugin"/>
+	<echo message=""/>
+
+	<echo message="[distributable]"/>
+	<echo message="Creates a source distributable of this project suitable"/>
+	<echo message="for users to download.  You must define the properties"/>
+	<echo message="'release', 'datestamp', and 'upload' in the file "/>
+	<echo message="'build.properties' for this to work property.  See the"/>
+	<echo message="example build.properties in this directory for"/>
+	<echo message="details and information"/>
+	<echo message=""/>
+
+	<echo message="[local-install]"/>
+	<echo message="Installs the Paper Airplane source into"/>
+	<echo message="the Mozilla chrome directory, which means"/>
+	<echo message="you don't need to run the XPI installer."/>
+	<echo message="You must have run the XPI installer"/>
+	<echo message="at least once before calling this."/>
+	<echo message=""/>
+
+	<echo message="[run]"/>
+	<echo message="Installs Paper Airplane right into"/>
+	<echo message="the chrome dir and runs the browser to"/>
+	<echo message="test it.  Quit the browser before calling"/>
+	<echo message="this."/>
+	<echo message=""/>
+
+	<echo message="[start-taskbar]"/>
+	<echo message="Runs the Paper Airplane taskbar proxy"/>
+	<echo message=""/>
+
+	<echo message="General information:"/>
+	<echo message="A file named 'build.properties' exists"/>
+	<echo message="in this directory that can be used to"/>
+	<echo message="control the build process."/>
+	<echo message="In particular, an attribute named"/>
+	<echo message="'upload' in that file controls whether"/>
+	<echo message="large files, such as the distributable"/>
+	<echo message="or plugin files, will be uploaded"/>
+	<echo message="into CVS"/>
+	<echo message=""/>
+	<echo message="Note that you must set a variety of"/>
+	<echo message="shell variables for this build file"/>
+	<echo message="to work correctly; see the README"/>
+	<echo message="file in this directory for details"/>
+
+  </target>
+
+</project>
